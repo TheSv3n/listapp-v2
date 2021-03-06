@@ -3,14 +3,14 @@ import mongoose from "mongoose";
 const listSchema = mongoose.Schema(
   {
     owner: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: String,
       required: true,
-      ref: "User",
     },
     listName: {
       type: String,
       required: true,
     },
+    sharedWith: [],
     listFinished: {
       type: Boolean,
       required: false,

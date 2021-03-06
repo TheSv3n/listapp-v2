@@ -5,6 +5,8 @@ import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 import morgan from "morgan";
 
+import userRoutes from "./routes/userRoutes.js";
+
 dotenv.config();
 
 connectDB();
@@ -18,6 +20,8 @@ if (process.env.NODE_ENV === "development") {
 const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
+
+app.use("/api/users", userRoutes);
 
 app.listen(
   PORT,
