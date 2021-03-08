@@ -5,11 +5,11 @@ import List from "../models/listModel.js";
 //@route POST /api/lists
 //@access Private
 const createList = asyncHandler(async (req, res) => {
-  const { listName, owner, listType, dateAdded } = req.body;
+  const { listName, listType, dateAdded } = req.body;
 
   const list = new List({
     listName,
-    owner,
+    owner: req.user._id,
     sharedWith: [],
     listType,
     dateAdded,
@@ -21,10 +21,10 @@ const createList = asyncHandler(async (req, res) => {
 });
 
 //@desc Get a users lists
-//@route GET /api/orders/userlists
+//@route GET /api/lists/userlists
 //@access Private
 const getUserLists = asyncHandler(async (req, res) => {
-  const lists = await Order.find({ user: req.user._id });
+  const lists = await List.find({ owner: req.user._id });
   res.json(lists);
 });
 

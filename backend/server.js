@@ -8,6 +8,7 @@ import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 
 import userRoutes from "./routes/userRoutes.js";
 import listRoutes from "./routes/listRoutes.js";
+import listItemRoutes from "./routes/listItemRoutes.js";
 
 dotenv.config();
 
@@ -25,6 +26,7 @@ app.use(express.json());
 
 app.use("/api/users", userRoutes);
 app.use("/api/lists", listRoutes);
+app.use("/api/listitems", listItemRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
