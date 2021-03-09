@@ -10,7 +10,7 @@ const listSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    sharedWith: [],
+    sharedWith: [String],
     listFinished: {
       type: Boolean,
       required: false,

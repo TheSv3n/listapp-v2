@@ -31,7 +31,7 @@ const getListItems = asyncHandler(async (req, res) => {
 
 //@desc Update items completed status
 //@route PUT /api/listitems/:id/completed
-//@access Private/Admin
+//@access Private
 const updateCompleted = asyncHandler(async (req, res) => {
   const listItem = await ListItem.findById(req.params.id);
 
@@ -39,8 +39,10 @@ const updateCompleted = asyncHandler(async (req, res) => {
     listItem.completed = req.body.completed;
     if (listItem.completed) {
       listItem.dateCompleted = Date.now();
+      listItem.completedBy = req.user._id;
     } else {
       listItem.dateCompleted = "";
+      listItem.completedBy = "";
     }
 
     const updatedListItem = await listItem.save();
@@ -51,4 +53,21 @@ const updateCompleted = asyncHandler(async (req, res) => {
   }
 });
 
-export { createListItem, getListItems, updateCompleted };
+//@desc Update items deleted status
+//@route PUT /api/listitems/:id/deleted
+//@access Private
+const updateDeleted = asyncHandler(async (req, res) => {
+  const listItem = await ListItem.findById(req.params.id);
+
+  if (listItem) {
+    listItem.itemDeleted = req.body.itemDeleted;
+
+    const updatedListItem = await listItem.save();
+    res.json(updatedListItem);
+  } else {
+    res.status(404);
+    throw new Error("Item not Found");
+  }
+});
+
+export { createListItem, getListItems, updateCompleted, updateDeleted };

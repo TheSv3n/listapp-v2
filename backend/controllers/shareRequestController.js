@@ -1,5 +1,5 @@
 import asyncHandler from "express-async-handler";
-import ShareRequest from "../models/ShareRequestModel.js";
+import ShareRequest from "../models/shareRequestModel.js";
 
 //@desc Create new share request
 //@route POST /api/sharerequests
