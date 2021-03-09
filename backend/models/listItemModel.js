@@ -56,6 +56,6 @@ const listItemSchema = mongoose.Schema(
   }
 );
 
-const List = mongoose.model("ListItem", listItemSchema);
+const ListItem = mongoose.model("ListItem", listItemSchema);
 
-export default List;
+export default ListItem;

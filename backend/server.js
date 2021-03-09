@@ -9,6 +9,7 @@ import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 import userRoutes from "./routes/userRoutes.js";
 import listRoutes from "./routes/listRoutes.js";
 import listItemRoutes from "./routes/listItemRoutes.js";
+import shareRequestRoutes from "./routes/shareRequestRoutes.js";
 
 dotenv.config();
 
@@ -27,6 +28,7 @@ app.use(express.json());
 app.use("/api/users", userRoutes);
 app.use("/api/lists", listRoutes);
 app.use("/api/listitems", listItemRoutes);
+app.use("/api/sharerequests", shareRequestRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
