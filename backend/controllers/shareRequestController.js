@@ -30,8 +30,8 @@ const updateShareResponse = asyncHandler(async (req, res) => {
   if (shareRequest) {
     shareRequest.response = req.body.response;
 
-    const updatedShareRespose = await shareRequest.save();
-    res.json(updatedShareRespose);
+    const updatedShareResponse = await shareRequest.save();
+    res.json(updatedShareResponse);
   } else {
     res.status(404);
     throw new Error("Request not Found");

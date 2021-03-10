@@ -10,6 +10,7 @@ import userRoutes from "./routes/userRoutes.js";
 import listRoutes from "./routes/listRoutes.js";
 import listItemRoutes from "./routes/listItemRoutes.js";
 import shareRequestRoutes from "./routes/shareRequestRoutes.js";
+import friendRequestRoutes from "./routes/friendRequestRoutes.js";
 
 dotenv.config();
 
@@ -29,6 +30,7 @@ app.use("/api/users", userRoutes);
 app.use("/api/lists", listRoutes);
 app.use("/api/listitems", listItemRoutes);
 app.use("/api/sharerequests", shareRequestRoutes);
+app.use("/api/friendrequests", friendRequestRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
