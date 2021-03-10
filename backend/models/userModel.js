@@ -29,7 +29,7 @@ const userSchema = mongoose.Schema(
       required: true,
       default: false,
     },
-    friends: [],
+    friends: [String],
   },
   {
     timestamps: true,

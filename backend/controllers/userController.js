@@ -64,4 +64,21 @@ const authUser = asyncHandler(async (req, res) => {
   }
 });
 
-export { registerUser, authUser };
+//@desc Update users friends list
+//@route PUT /api/users/:id/friendlist
+//@access Private
+const updateUserFriendList = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id);
+
+  if (user) {
+    user.friends = req.body.friends;
+
+    const updatedUser = await user.save();
+    res.json(updatedUser);
+  } else {
+    res.status(404);
+    throw new Error("List not Found");
+  }
+});
+
+export { registerUser, authUser, updateUserFriendList };
