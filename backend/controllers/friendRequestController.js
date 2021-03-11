@@ -37,4 +37,31 @@ const updateFriendResponse = asyncHandler(async (req, res) => {
   }
 });
 
-export { createFriendRequest, updateFriendResponse };
+//@desc Get a users received friend requests
+//@route GET /api/friendrequests/received
+//@access Private
+const getReceivedFriendRequests = asyncHandler(async (req, res) => {
+  const friendRequests = await FriendRequest.find({
+    requestTo: req.user._id,
+    response: 0,
+  });
+  res.json(friendRequests);
+});
+
+//@desc Get a users received friend requests
+//@route GET /api/friendrequests/sent
+//@access Private
+const getSentFriendRequests = asyncHandler(async (req, res) => {
+  const friendRequests = await FriendRequest.find({
+    requestFrom: req.user._id,
+    response: 0,
+  });
+  res.json(friendRequests);
+});
+
+export {
+  createFriendRequest,
+  updateFriendResponse,
+  getReceivedFriendRequests,
+  getSentFriendRequests,
+};

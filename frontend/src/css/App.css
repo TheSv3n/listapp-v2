@@ -1,0 +1,58 @@
+:root {
+  --mainBlue: #2a2a72;
+  --lightBlue: #009ffd;
+  --mainWhite: #f3f3f3;
+  --mainDark: #232528;
+  --mainYellow: #ffa400;
+  --mainRed: #ff1100;
+  --mainGreen: #11cc11;
+  --mainGrey: #dddddd;
+}
+
+.navbar {
+  text-align: center;
+  color: var(--mainWhite);
+  background: var(--lightBlue);
+}
+
+.list-group-item {
+  border: 0.2rem solid var(--lightBlue);
+  border-radius: 15px;
+  text-align: center;
+  transition: all 0.2s linear;
+}
+
+.list-group-item-done {
+  border: 0.2rem solid var(--mainGreen);
+}
+
+.list-group-item:hover {
+  border: 0.5rem solid rgba(0, 0, 0, 0.2);
+  box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.2);
+}
+
+.list-menu-item {
+  cursor: pointer;
+  transition: all 0.2s linear;
+}
+
+.list-menu-item:hover {
+  border: 0.5rem solid rgba(0, 0, 0, 0.2);
+  box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.2);
+}
+
+.title-text {
+  font-family: "Cabin", sans-serif !important;
+  font-size: 2rem;
+  color: var(--mainWhite) !important;
+}
+
+.nav-icon-span {
+  color: var(--mainWhite);
+}
+
+.nav-item-icon {
+  color: var(--mainWhite) !important;
+  font-size: 2rem !important;
+  cursor: pointer;
+}
