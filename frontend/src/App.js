@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import NavBar from "./components/NavBar";
 import ListMenuScreen from "./screens/ListMenuScreen";
+import LoginScreen from "./screens/LoginScreen";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <Router>
         <NavBar />
         <Container>
+          <Route path="/login" component={LoginScreen} />
           <Route path="/" component={ListMenuScreen} exact />
         </Container>
       </Router>
