@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { login } from "../actions/userActions";
+import { useDispatch, useSelector } from "react-redux";
 
-const LoginScreen = () => {
+const LoginScreen = ({ location, history }) => {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [emailVerify, setEmailVerify] = useState("");
@@ -10,17 +12,31 @@ const LoginScreen = () => {
   const [lastName, setLastName] = useState("");
   const [newUserToggle, setNewUserToggle] = useState(false);
 
-  const createUserHandler = () => {
-    //Create User
+  const redirect = location.search ? location.search.split("=")[1] : "/";
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { loading, error, userInfo } = userLogin;
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (userInfo) {
+      history.push(redirect);
+    }
+  }, [history, userInfo, redirect]);
+
+  const createUserHandler = (e) => {
+    e.preventDefault();
   };
 
-  const loginHandler = () => {
-    //login
+  const loginHandler = (e) => {
+    e.preventDefault();
+    dispatch(login(userName, password));
   };
 
   const toggleNewUserHandler = (e) => {
     e.preventDefault();
-    //toggle new user
+    setNewUserToggle(!newUserToggle);
   };
 
   return (
@@ -38,7 +54,7 @@ const LoginScreen = () => {
                   </div>
                   <input
                     type="text"
-                    className="form-control text-capitalize"
+                    className="form-control"
                     placeholder={
                       newUserToggle ? "Username" : "Username/Email Address"
                     }
@@ -155,14 +171,15 @@ const LoginScreen = () => {
                 >
                   {newUserToggle ? "Create" : "Login"}
                 </button>
-                <span className="ml-4 mr-4" />
+
+                <button
+                  onClick={toggleNewUserHandler}
+                  className="btn btn-block btn-info col-5 ml-auto mt-1"
+                >
+                  {newUserToggle ? "Back to Login" : "Create User"}
+                </button>
               </div>
-              <button
-                onClick={() => toggleNewUserHandler()}
-                className="btn btn-block btn-info col-5 ml-auto mt-1"
-              >
-                {newUserToggle ? "Back to Login" : "Create User"}
-              </button>
+
               {/*value.errorView ? (
                 <div className="row">
                   <li className="list-group-item text-center my-2 mx-auto border-danger col-11 bg-danger text-white">

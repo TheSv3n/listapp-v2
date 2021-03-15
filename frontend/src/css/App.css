@@ -16,7 +16,7 @@
 }
 
 .list-group-item {
-  border: 0.2rem solid var(--lightBlue);
+  border: 0.2rem solid var(--lightBlue) !important;
   border-radius: 15px;
   text-align: center;
   transition: all 0.2s linear;
