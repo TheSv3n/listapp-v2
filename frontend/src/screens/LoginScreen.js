@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { login } from "../actions/userActions";
+import { login, registerUser } from "../actions/userActions";
 import { useDispatch, useSelector } from "react-redux";
 
 const LoginScreen = ({ location, history }) => {
@@ -11,11 +11,15 @@ const LoginScreen = ({ location, history }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [newUserToggle, setNewUserToggle] = useState(false);
+  const [errorText, setErrorText] = useState("");
 
   const redirect = location.search ? location.search.split("=")[1] : "/";
 
   const userLogin = useSelector((state) => state.userLogin);
   const { loading, error, userInfo } = userLogin;
+
+  const userRegister = useSelector((state) => state.userRegister);
+  const { loading: registerLoading, error: registerError } = userRegister;
 
   const dispatch = useDispatch();
 
@@ -23,10 +27,41 @@ const LoginScreen = ({ location, history }) => {
     if (userInfo) {
       history.push(redirect);
     }
-  }, [history, userInfo, redirect]);
+    if (error) {
+      setErrorText(error);
+    } else if (registerError) {
+      setErrorText(registerError);
+    }
+  }, [history, userInfo, redirect, error, registerError]);
+
+  const dataValid = () => {
+    if (
+      userName === "" ||
+      firstName === "" ||
+      lastName === "" ||
+      email === "" ||
+      emailVerify === "" ||
+      password === "" ||
+      passwordVerify === ""
+    ) {
+      setErrorText("Please enter data in all fields");
+      return false;
+    }
+    if (password !== passwordVerify) {
+      setErrorText("Please ensure passwords match");
+      return false;
+    }
+    if (email !== emailVerify) {
+      setErrorText("Please ensure email addresses match");
+      return false;
+    }
+  };
 
   const createUserHandler = (e) => {
     e.preventDefault();
+    if (dataValid()) {
+      dispatch(registerUser(userName, firstName, lastName, email, password));
+    }
   };
 
   const loginHandler = (e) => {
@@ -179,16 +214,15 @@ const LoginScreen = ({ location, history }) => {
                   {newUserToggle ? "Back to Login" : "Create User"}
                 </button>
               </div>
-
-              {/*value.errorView ? (
+              {errorText ? (
                 <div className="row">
                   <li className="list-group-item text-center my-2 mx-auto border-danger col-11 bg-danger text-white">
-                    {value.errorText}
+                    {errorText}
                   </li>
                 </div>
               ) : (
                 ""
-			  )*/}
+              )}
             </form>
           </li>
         </div>
