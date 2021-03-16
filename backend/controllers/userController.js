@@ -22,7 +22,7 @@ const registerUser = asyncHandler(async (req, res) => {
   const user = await User.create({
     userName,
     name,
-    email,
+    email: email.toLowerCase(),
     password,
     userNameLower: userName.toLowerCase(),
     friends: [],
@@ -47,9 +47,18 @@ const registerUser = asyncHandler(async (req, res) => {
 //@route POST /api/users/login
 //@access Public
 const authUser = asyncHandler(async (req, res) => {
-  const { email, password } = req.body;
+  const { userName, password } = req.body;
+  let user;
 
-  const user = await User.findOne({ email: email });
+  if (
+    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+      userName.toLowerCase()
+    )
+  ) {
+    user = await User.findOne({ email: userName.toLowerCase() });
+  } else {
+    user = await User.findOne({ userNameLower: userName.toLowerCase() });
+  }
 
   if (user && (await user.matchPassword(password))) {
     res.json({

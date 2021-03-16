@@ -47,14 +47,34 @@ const LoginScreen = ({ location, history }) => {
       setErrorText("Please enter data in all fields");
       return false;
     }
+    if (
+      password.length < 8 ||
+      password.toUpperCase() === password ||
+      password.toLowerCase() === password ||
+      !/\d/.test(password)
+    ) {
+      setErrorText(
+        "Password must be at least 8 characters long, contain at least one uppercase character,one lower case character and one number"
+      );
+      return false;
+    }
     if (password !== passwordVerify) {
       setErrorText("Please ensure passwords match");
+      return false;
+    }
+    if (
+      !/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+        email.toLowerCase()
+      )
+    ) {
+      setErrorText("Please enter a valid email address");
       return false;
     }
     if (email !== emailVerify) {
       setErrorText("Please ensure email addresses match");
       return false;
     }
+    return true;
   };
 
   const createUserHandler = (e) => {
@@ -115,7 +135,7 @@ const LoginScreen = ({ location, history }) => {
                 </div>
               </div>
               {newUserToggle ? (
-                <React.Fragment>
+                <>
                   <div className="row">
                     <div className="input-group col-12 my-1">
                       <div className="input-group-prepend">
@@ -194,7 +214,7 @@ const LoginScreen = ({ location, history }) => {
                       />
                     </div>
                   </div>
-                </React.Fragment>
+                </>
               ) : (
                 ""
               )}
