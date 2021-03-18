@@ -17,7 +17,7 @@
 
 .list-group-item {
   border: 0.2rem solid var(--lightBlue) !important;
-  border-radius: 15px;
+  border-radius: 15px !important;
   text-align: center;
   transition: all 0.2s linear;
 }
@@ -67,4 +67,7 @@
 .icon:hover {
   border: 0.1rem solid rgba(0, 0, 0, 0.2);
   box-shadow: 1px 1px 2.5px 0px rgba(0, 0, 0, 0.2);
+}
+.hidden-icon {
+  color: var(--mainGrey) !important;
 }

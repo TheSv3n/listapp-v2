@@ -33,7 +33,6 @@ const getUserLists = asyncHandler(async (req, res) => {
 //@access Private
 const getSharedLists = asyncHandler(async (req, res) => {
   const lists = await List.find({ sharedWith: req.user._id });
-  console.log(req.user._id);
   res.json(lists);
 });
 
