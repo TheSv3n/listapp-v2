@@ -11,6 +11,10 @@ import {
   CREATE_LIST_SUCCESS,
   CREATE_LIST_FAIL,
   CREATE_LIST_RESET,
+  LIST_INFO_REQUEST,
+  LIST_INFO_SUCCESS,
+  LIST_INFO_FAIL,
+  LIST_INFO_RESET,
 } from "../constants/listContstants";
 
 export const usersListsReducer = (state = { lists: [] }, action) => {
@@ -83,6 +87,28 @@ export const listCreateReducer = (state = {}, action) => {
     case CREATE_LIST_RESET:
       return {
         state: {},
+      };
+    default:
+      return state;
+  }
+};
+
+export const listInfoReducer = (state = {}, action) => {
+  switch (action.type) {
+    case LIST_INFO_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case LIST_INFO_SUCCESS:
+      return {
+        loading: false,
+        list: action.payload,
+      };
+    case LIST_INFO_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
       };
     default:
       return state;

@@ -11,6 +11,9 @@ import {
   CREATE_LIST_REQUEST,
   CREATE_LIST_SUCCESS,
   CREATE_LIST_FAIL,
+  LIST_INFO_REQUEST,
+  LIST_INFO_SUCCESS,
+  LIST_INFO_FAIL,
 } from "../constants/listContstants";
 
 export const getUsersLists = () => async (dispatch, getState) => {
@@ -106,6 +109,39 @@ export const createList = (list) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: CREATE_LIST_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const getListInfo = (listId) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: LIST_INFO_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.get(`/api/lists/${listId}`, config);
+
+    dispatch({
+      type: LIST_INFO_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: LIST_INFO_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

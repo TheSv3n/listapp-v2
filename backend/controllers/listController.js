@@ -76,10 +76,25 @@ const updateListShares = asyncHandler(async (req, res) => {
   }
 });
 
+//@desc Get list information
+//@route GET /api/lists/:id
+//@access Private
+const getListInfo = asyncHandler(async (req, res) => {
+  const list = await List.findById(req.params.id);
+
+  if (list) {
+    res.json(list);
+  } else {
+    res.status(404);
+    throw new Error("List not Found");
+  }
+});
+
 export {
   createList,
   getUserLists,
   updateListFinished,
   updateListShares,
   getSharedLists,
+  getListInfo,
 };
