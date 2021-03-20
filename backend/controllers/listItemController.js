@@ -36,7 +36,7 @@ const updateCompleted = asyncHandler(async (req, res) => {
   const listItem = await ListItem.findById(req.params.id);
 
   if (listItem) {
-    listItem.completed = req.body.completed;
+    listItem.completed = !listItem.completed;
     if (listItem.completed) {
       listItem.dateCompleted = Date.now();
       listItem.completedBy = req.user._id;
@@ -60,7 +60,7 @@ const updateDeleted = asyncHandler(async (req, res) => {
   const listItem = await ListItem.findById(req.params.id);
 
   if (listItem) {
-    listItem.itemDeleted = req.body.itemDeleted;
+    listItem.itemDeleted = !listItem.itemDeleted;
 
     const updatedListItem = await listItem.save();
     res.json(updatedListItem);

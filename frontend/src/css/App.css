@@ -23,7 +23,7 @@
 }
 
 .list-group-item-done {
-  border: 0.2rem solid var(--mainGreen);
+  border: 0.2rem solid var(--mainGreen) !important;
 }
 
 .list-group-item:hover {

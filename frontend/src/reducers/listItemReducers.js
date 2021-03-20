@@ -7,6 +7,12 @@ import {
   CREATE_LIST_ITEM_SUCCESS,
   CREATE_LIST_ITEM_FAIL,
   CREATE_LIST_ITEM_RESET,
+  COMPLETE_LIST_ITEM_REQUEST,
+  COMPLETE_LIST_ITEM_SUCCESS,
+  COMPLETE_LIST_ITEM_FAIL,
+  DELETE_LIST_ITEM_REQUEST,
+  DELETE_LIST_ITEM_SUCCESS,
+  DELETE_LIST_ITEM_FAIL,
 } from "../constants/listItemConstants";
 
 export const listItemsReducer = (state = { items: [] }, action) => {
@@ -54,6 +60,46 @@ export const listItemCreateReducer = (state = {}, action) => {
     case CREATE_LIST_ITEM_RESET:
       return {
         state: {},
+      };
+    default:
+      return state;
+  }
+};
+
+export const listItemCompleteReducer = (state = {}, action) => {
+  switch (action.type) {
+    case COMPLETE_LIST_ITEM_REQUEST:
+      return {
+        loading: true,
+      };
+    case COMPLETE_LIST_ITEM_SUCCESS:
+      return {
+        loading: false,
+      };
+    case COMPLETE_LIST_ITEM_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
+export const listItemDeleteReducer = (state = {}, action) => {
+  switch (action.type) {
+    case DELETE_LIST_ITEM_REQUEST:
+      return {
+        loading: true,
+      };
+    case DELETE_LIST_ITEM_SUCCESS:
+      return {
+        loading: false,
+      };
+    case DELETE_LIST_ITEM_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
       };
     default:
       return state;
