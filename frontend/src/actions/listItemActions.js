@@ -69,7 +69,7 @@ export const createListItem = (listItem) => async (dispatch, getState) => {
       type: CREATE_LIST_ITEM_SUCCESS,
       payload: data,
     });
-    dispatch(getListItems());
+    dispatch(getListItems(listItem.list));
   } catch (error) {
     dispatch({
       type: CREATE_LIST_ITEM_FAIL,

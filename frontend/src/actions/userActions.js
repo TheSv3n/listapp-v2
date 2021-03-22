@@ -12,6 +12,10 @@ import {
   USER_REGISTER_SUCCESS,
   USER_REGISTER_FAIL,
   USER_REGISTER_RESET,
+  USER_FRIENDLIST_REQUEST,
+  USER_FRIENDLIST_SUCCESS,
+  USER_FRIENDLIST_FAIL,
+  USER_FRIENDLIST_RESET,
 } from "../constants/userConstants";
 
 export const login = (userName, password) => async (dispatch) => {
@@ -130,6 +134,46 @@ export const registerUser = (
   } catch (error) {
     dispatch({
       type: USER_REGISTER_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const getFriendList = (friendList) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: USER_FRIENDLIST_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.get(
+      `/api/users/friendlist`,
+      friendList,
+      config
+    );
+
+    dispatch({
+      type: USER_FRIENDLIST_SUCCESS,
+      payload: data,
+    });
+
+    localStorage.setItem("userInfo", JSON.stringify(data));
+  } catch (error) {
+    dispatch({
+      type: USER_FRIENDLIST_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

@@ -35,8 +35,7 @@ const ListScreen = ({ match, history }) => {
         <div className="row">
           <div className="col-12 mx-auto col-md-12 col-lg-12">
             <ul className="list-group">
-              <NewItemEditor />
-
+              <NewItemEditor listId={listId} />
               <>
                 {items &&
                   items.map((listItem) => {
