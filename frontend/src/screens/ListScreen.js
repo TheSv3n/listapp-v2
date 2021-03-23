@@ -35,9 +35,10 @@ const ListScreen = ({ match, history }) => {
         <div className="row">
           <div className="col-12 mx-auto col-md-12 col-lg-12">
             <ul className="list-group">
-              <NewItemEditor listId={listId} />
+              {list && <NewItemEditor listId={listId} />}
               <>
                 {items &&
+                  list &&
                   items.map((listItem) => {
                     if (
                       listItem.completed === false &&
@@ -56,6 +57,7 @@ const ListScreen = ({ match, history }) => {
 
               <>
                 {items &&
+                  list &&
                   items.map((listItem) => {
                     if (
                       listItem.completed === true &&

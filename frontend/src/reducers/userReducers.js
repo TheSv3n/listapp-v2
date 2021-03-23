@@ -63,7 +63,7 @@ export const userRegisterReducer = (state = {}, action) => {
   }
 };
 
-export const friendListReducer = (state = { friendList: [] }, action) => {
+export const friendDetailsReducer = (state = {}, action) => {
   switch (action.type) {
     case USER_FRIENDLIST_REQUEST:
       return { loading: true };

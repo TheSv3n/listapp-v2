@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { createListItem } from "../actions/listItemActions";
-import { getUserDetails } from "../actions/userActions";
+import { getUserDetails, getFriendList } from "../actions/userActions";
 import { useDispatch, useSelector } from "react-redux";
 
 const NewItemEditor = ({ history, listId }) => {
@@ -15,6 +15,9 @@ const NewItemEditor = ({ history, listId }) => {
 
   const userDetails = useSelector((state) => state.userDetails);
   const { loading, error, user } = userDetails;
+
+  const friendDetails = useSelector((state) => state.friendDetails);
+  const { friendList } = friendDetails;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -38,9 +41,11 @@ const NewItemEditor = ({ history, listId }) => {
     } else {
       if (!user) {
         dispatch(getUserDetails(userInfo._id));
+      } else if (!friendList) {
+        dispatch(getFriendList(user.friends));
       }
     }
-  }, [dispatch, , userInfo, user]);
+  }, [dispatch, userInfo, user, friendList, history]);
 
   const handleOptionsToggle = (e) => {
     e.preventDefault();
@@ -120,7 +125,7 @@ const NewItemEditor = ({ history, listId }) => {
             <>
               {/*(value) => {
                 // eslint-disable-next-line
-                return value.friendsList.map((friend) => {
+                return value.friendList.map((friend) => {
                   //console.log(friend._id);
 
                   var isShared = "false";

@@ -83,8 +83,6 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
       type: USER_DETAILS_SUCCESS,
       payload: data,
     });
-
-    localStorage.setItem("userInfo", JSON.stringify(data));
   } catch (error) {
     dispatch({
       type: USER_DETAILS_FAIL,
@@ -159,9 +157,9 @@ export const getFriendList = (friendList) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get(
+    const { data } = await axios.post(
       `/api/users/friendlist`,
-      friendList,
+      { friendList: friendList },
       config
     );
 
@@ -169,8 +167,6 @@ export const getFriendList = (friendList) => async (dispatch, getState) => {
       type: USER_FRIENDLIST_SUCCESS,
       payload: data,
     });
-
-    localStorage.setItem("userInfo", JSON.stringify(data));
   } catch (error) {
     dispatch({
       type: USER_FRIENDLIST_FAIL,

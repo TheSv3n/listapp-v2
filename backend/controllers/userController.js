@@ -94,7 +94,7 @@ const updateUserFriendList = asyncHandler(async (req, res) => {
 
 //@desc Get user by ID
 //@route GET /api/users/:id
-//@access Private/Admin
+//@access Private
 const getUserById = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id).select("-password");
   if (user) {
@@ -105,4 +105,34 @@ const getUserById = asyncHandler(async (req, res) => {
   }
 });
 
-export { registerUser, authUser, updateUserFriendList, getUserById };
+//@desc Get users friend list
+//@route POST /api/users/friendlist
+//@access Private
+const getFriendList = asyncHandler(async (req, res) => {
+  const friendIds = req.body.friendList;
+  let friends = [];
+  for (var i = 0; i < friendIds.length; i++) {
+    let user = await User.findById(friendIds[i]).select("-password");
+    if (user) {
+      friends.push(user);
+    } else {
+      res.status(404);
+      throw new Error("User not found");
+    }
+  }
+
+  if (friends.length > 0) {
+    res.json(friends);
+  } else {
+    res.status(404);
+    throw new Error("No Friends in list");
+  }
+});
+
+export {
+  registerUser,
+  authUser,
+  updateUserFriendList,
+  getUserById,
+  getFriendList,
+};
