@@ -1,7 +1,7 @@
 import React from "react";
 
-const ListFriendElement = () => {
-  return <div>ListFriendElement</div>;
+const ListFriendElement = ({ friend }) => {
+  return <div>{friend.name}</div>;
 };
 
 export default ListFriendElement;

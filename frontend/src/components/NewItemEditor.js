@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { createListItem } from "../actions/listItemActions";
 import { getUserDetails, getFriendList } from "../actions/userActions";
 import { useDispatch, useSelector } from "react-redux";
+import ListFriendElement from "../components/ListFriendElement";
 
 const NewItemEditor = ({ history, listId }) => {
   const dispatch = useDispatch();
@@ -18,6 +19,9 @@ const NewItemEditor = ({ history, listId }) => {
 
   const friendDetails = useSelector((state) => state.friendDetails);
   const { friendList } = friendDetails;
+
+  const listInfo = useSelector((state) => state.listInfo);
+  const { list } = listInfo;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -118,26 +122,20 @@ const NewItemEditor = ({ history, listId }) => {
           </button>
         </div>
         {optionsShow ? (
-          <React.Fragment>
+          <>
             <div className="text-center">
               <span>List Shared With</span>
             </div>
             <>
-              {/*(value) => {
+              {
                 // eslint-disable-next-line
-                return value.friendList.map((friend) => {
-                  //console.log(friend._id);
-
+                friendList.map((friend) => {
                   var isShared = "false";
-                  if (value.activeListSharedWith.length === 0) {
+                  if (list.sharedWith.length === 0) {
                     return "";
                   } else {
-                    for (
-                      var i = 0;
-                      i < value.activeListSharedWith.length;
-                      i++
-                    ) {
-                      if (friend._id === value.activeListSharedWith[i]) {
+                    for (var i = 0; i < list.sharedWith.length; i++) {
+                      if (friend._id === list.sharedWith[i]) {
                         isShared = "true";
                         return (
                           <ListFriendElement
@@ -148,7 +146,7 @@ const NewItemEditor = ({ history, listId }) => {
                             shareRequested="false"
                           />
                         );
-                      } else if (friend._id === value.activeListOwner) {
+                      } else if (friend._id === list.owner) {
                         isShared = "true";
                         return (
                           <ListFriendElement
@@ -161,72 +159,65 @@ const NewItemEditor = ({ history, listId }) => {
                         );
                       } else {
                         //console.log("returned");
-                        //return "";
+                        return "";
                       }
                     }
                   }
-                });
-              }*/}
+                })
+              }
             </>
 
             <div className="text-center">
               <span>Other Friends</span>
             </div>
             <>
-              {/*(value) => {
-                // eslint-disable-next-line
-                return value.friendsList.map((friend) => {
-                  var isShared = "false";
-                  var shareRequested = "false";
+              {friendList.map((friend) => {
+                let isShared = "false";
+                let shareRequested = "false";
 
-                  if (value.activeListSharedWith.length === 0) {
-                    isShared = "false";
-                  } else {
-                    for (
-                      var i = 0;
-                      i < value.activeListSharedWith.length;
-                      i++
+                if (list.sharedWith.length === 0) {
+                  isShared = "false";
+                } else {
+                  for (var i = 0; i < list.sharedWith.length; i++) {
+                    if (
+                      friend._id !== list.sharedWith[i] &&
+                      friend._id !== list.owner
                     ) {
-                      if (
-                        friend._id !== value.activeListSharedWith[i] &&
-                        friend._id !== value.activeListOwner
-                      ) {
-                      } else {
-                        isShared = "true";
-                      }
+                    } else {
+                      isShared = "true";
                     }
                   }
+                }
 
-                  if (value.sentShareRequests.length === 0) {
-                    shareRequested = "false";
-                  } else {
-                    for (var j = 0; j < value.sentShareRequests.length; j++) {
-                      if (
-                        friend._id === value.sentShareRequests[j].requestTo &&
-                        value.sentShareRequests[j].listId === value.list
-                      ) {
-                        shareRequested = "true";
-                      }
+                /*if (value.sentShareRequests.length === 0) {
+                  shareRequested = "false";
+                } else {
+                  for (var j = 0; j < value.sentShareRequests.length; j++) {
+                    if (
+                      friend._id === value.sentShareRequests[j].requestTo &&
+                      value.sentShareRequests[j].listId === value.list
+                    ) {
+                      shareRequested = "true";
                     }
                   }
+                }*/
 
-                  if (isShared === "false") {
-                    return (
-                      <ListFriendElement
-                        key={friend._id}
-                        isShared={isShared}
-                        isOwner="false"
-                        friend={friend}
-                        shareRequested={shareRequested}
-                      />
-                    );
-                  } else {
-                    return "";
-                  }
-                });
-              }*/}
+                if (isShared === "false") {
+                  return (
+                    <ListFriendElement
+                      key={friend._id}
+                      isShared={isShared}
+                      isOwner="false"
+                      friend={friend}
+                      shareRequested={shareRequested}
+                    />
+                  );
+                } else {
+                  return "";
+                }
+              })}
             </>
-          </React.Fragment>
+          </>
         ) : (
           ""
         )}
