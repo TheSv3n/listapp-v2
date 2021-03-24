@@ -71,3 +71,7 @@
 .hidden-icon {
   color: var(--mainGrey) !important;
 }
+
+.friend-icon-span {
+  text-align: right;
+}

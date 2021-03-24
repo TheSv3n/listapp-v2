@@ -130,29 +130,29 @@ const NewItemEditor = ({ history, listId }) => {
               {
                 // eslint-disable-next-line
                 friendList.map((friend) => {
-                  var isShared = "false";
+                  var isShared = false;
                   if (list.sharedWith.length === 0) {
                     return "";
                   } else {
                     for (var i = 0; i < list.sharedWith.length; i++) {
                       if (friend._id === list.sharedWith[i]) {
-                        isShared = "true";
+                        isShared = true;
                         return (
                           <ListFriendElement
                             key={friend._id}
                             isShared={isShared}
-                            isOwner="false"
+                            isOwner={false}
                             friend={friend}
-                            shareRequested="false"
+                            shareRequested={false}
                           />
                         );
                       } else if (friend._id === list.owner) {
-                        isShared = "true";
+                        isShared = true;
                         return (
                           <ListFriendElement
                             key={friend._id}
                             isShared={isShared}
-                            isOwner="true"
+                            isOwner={true}
                             friend={friend}
                             shareRequested="false"
                           />
@@ -172,11 +172,11 @@ const NewItemEditor = ({ history, listId }) => {
             </div>
             <>
               {friendList.map((friend) => {
-                let isShared = "false";
-                let shareRequested = "false";
+                let isShared = false;
+                let shareRequested = false;
 
                 if (list.sharedWith.length === 0) {
-                  isShared = "false";
+                  isShared = false;
                 } else {
                   for (var i = 0; i < list.sharedWith.length; i++) {
                     if (
@@ -184,30 +184,30 @@ const NewItemEditor = ({ history, listId }) => {
                       friend._id !== list.owner
                     ) {
                     } else {
-                      isShared = "true";
+                      isShared = true;
                     }
                   }
                 }
 
                 /*if (value.sentShareRequests.length === 0) {
-                  shareRequested = "false";
+                  shareRequested = false;
                 } else {
                   for (var j = 0; j < value.sentShareRequests.length; j++) {
                     if (
                       friend._id === value.sentShareRequests[j].requestTo &&
                       value.sentShareRequests[j].listId === value.list
                     ) {
-                      shareRequested = "true";
+                      shareRequested = true;
                     }
                   }
                 }*/
 
-                if (isShared === "false") {
+                if (isShared === false) {
                   return (
                     <ListFriendElement
                       key={friend._id}
                       isShared={isShared}
-                      isOwner="false"
+                      isOwner={false}
                       friend={friend}
                       shareRequested={shareRequested}
                     />
