@@ -17,6 +17,11 @@ import {
   listItemsReducer,
   listItemCreateReducer,
 } from "./reducers/listItemReducers";
+import {
+  sentShareRequestsReducer,
+  shareRequestCreateReducer,
+  receivedShareRequestsReducer,
+} from "./reducers/shareRequestReducers";
 
 const reducer = combineReducers({
   userLogin: userLoginReducer,
@@ -29,6 +34,9 @@ const reducer = combineReducers({
   listItems: listItemsReducer,
   listItemCreate: listItemCreateReducer,
   friendDetails: friendDetailsReducer,
+  shareRequestCreate: shareRequestCreateReducer,
+  receivedShareRequests: receivedShareRequestsReducer,
+  sentShareRequests: sentShareRequestsReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")

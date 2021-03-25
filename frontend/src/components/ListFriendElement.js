@@ -1,13 +1,26 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { createShareRequest } from "../actions/shareRequestActions";
+import { useDispatch, useSelector } from "react-redux";
 
 const ListFriendElement = ({ friend, isOwner, isShared, isRequested }) => {
+  const dispatch = useDispatch();
+
+  const listInfo = useSelector((state) => state.listInfo);
+  const { list } = listInfo;
+
   const handleShareRemove = () => {
     //remove share
   };
 
   const handleShareRequest = () => {
-    //send share request
+    dispatch(
+      createShareRequest({
+        requestTo: friend._id,
+        listId: list._id,
+        listName: list.listName,
+      })
+    );
   };
 
   const handleNewMessage = () => {

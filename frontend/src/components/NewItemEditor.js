@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { createListItem } from "../actions/listItemActions";
 import { getUserDetails, getFriendList } from "../actions/userActions";
+import { getSentShareRequests } from "../actions/shareRequestActions";
 import { useDispatch, useSelector } from "react-redux";
 import ListFriendElement from "../components/ListFriendElement";
 
@@ -19,6 +20,9 @@ const NewItemEditor = ({ history, listId }) => {
 
   const friendDetails = useSelector((state) => state.friendDetails);
   const { friendList } = friendDetails;
+
+  const sentShareRequests = useSelector((state) => state.sentShareRequests);
+  const { requests } = sentShareRequests;
 
   const listInfo = useSelector((state) => state.listInfo);
   const { list } = listInfo;
@@ -47,6 +51,8 @@ const NewItemEditor = ({ history, listId }) => {
         dispatch(getUserDetails(userInfo._id));
       } else if (!friendList) {
         dispatch(getFriendList(user.friends));
+      } else if (!requests) {
+        dispatch(getSentShareRequests());
       }
     }
   }, [dispatch, userInfo, user, friendList, history]);
@@ -188,19 +194,20 @@ const NewItemEditor = ({ history, listId }) => {
                     }
                   }
                 }
-
-                /*if (value.sentShareRequests.length === 0) {
-                  shareRequested = false;
-                } else {
-                  for (var j = 0; j < value.sentShareRequests.length; j++) {
-                    if (
-                      friend._id === value.sentShareRequests[j].requestTo &&
-                      value.sentShareRequests[j].listId === value.list
-                    ) {
-                      shareRequested = true;
+                if (requests) {
+                  if (requests.length === 0) {
+                    shareRequested = false;
+                  } else {
+                    for (var j = 0; j < requests.length; j++) {
+                      if (
+                        friend._id === requests[j].requestTo &&
+                        requests[j].listId === list._id
+                      ) {
+                        shareRequested = true;
+                      }
                     }
                   }
-                }*/
+                }
 
                 if (isShared === false) {
                   return (
@@ -209,7 +216,7 @@ const NewItemEditor = ({ history, listId }) => {
                       isShared={isShared}
                       isOwner={false}
                       friend={friend}
-                      shareRequested={shareRequested}
+                      isRequested={shareRequested}
                     />
                   );
                 } else {
