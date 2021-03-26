@@ -5,6 +5,7 @@ import { getListItems } from "../actions/listItemActions";
 import Loader from "../components/Loader";
 import NewItemEditor from "../components/NewItemEditor";
 import ListItem from "../components/ListItem";
+import { getReceivedShareRequests } from "../actions/shareRequestActions";
 
 const ListScreen = ({ match, history }) => {
   const listId = match.params.id;
@@ -26,6 +27,7 @@ const ListScreen = ({ match, history }) => {
     } else {
       dispatch(getListInfo(listId));
       dispatch(getListItems(listId));
+      dispatch(getReceivedShareRequests());
     }
   }, [dispatch, history, userInfo, listId]);
 

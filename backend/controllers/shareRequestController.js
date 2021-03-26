@@ -42,7 +42,10 @@ const updateShareResponse = asyncHandler(async (req, res) => {
 //@route GET /api/sharerequests/received
 //@access Private
 const getReceivedShareRequests = asyncHandler(async (req, res) => {
-  const shareRequests = await ShareRequest.find({ requestTo: req.user._id });
+  const shareRequests = await ShareRequest.find({
+    requestTo: req.user._id,
+    response: 0,
+  });
   res.json(shareRequests);
 });
 

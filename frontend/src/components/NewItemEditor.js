@@ -55,7 +55,7 @@ const NewItemEditor = ({ history, listId }) => {
         dispatch(getSentShareRequests());
       }
     }
-  }, [dispatch, userInfo, user, friendList, history]);
+  }, [dispatch, userInfo, user, friendList, requests, history]);
 
   const handleOptionsToggle = (e) => {
     e.preventDefault();

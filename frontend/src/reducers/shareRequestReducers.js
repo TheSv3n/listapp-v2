@@ -11,10 +11,7 @@ import {
   CREATE_SHARE_REQUEST_RESET,
 } from "../constants/shareRequestConstants";
 
-export const receivedShareRequestsReducer = (
-  state = { requests: [] },
-  action
-) => {
+export const receivedShareRequestsReducer = (state = {}, action) => {
   switch (action.type) {
     case GET_SHARE_REQUESTS_REQUEST:
       return {

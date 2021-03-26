@@ -4,6 +4,7 @@ import ListMenuItem from "../components/ListMenuItem";
 import ListEditor from "../components/ListEditor";
 import Loader from "../components/Loader";
 import { getUsersLists, getSharedLists } from "../actions/listActions";
+import { getReceivedShareRequests } from "../actions/shareRequestActions";
 
 const ListMenuScreen = ({ history }) => {
   const dispatch = useDispatch();
@@ -27,6 +28,7 @@ const ListMenuScreen = ({ history }) => {
     } else {
       dispatch(getUsersLists());
       dispatch(getSharedLists());
+      dispatch(getReceivedShareRequests());
     }
   }, [dispatch, history, userInfo]);
   return (

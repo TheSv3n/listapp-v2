@@ -75,3 +75,22 @@
 .friend-icon-span {
   text-align: right;
 }
+
+.icon-has-message {
+  color: transparent !important;
+  animation-name: icon-pulse;
+  animation-duration: 2.5s;
+  animation-iteration-count: infinite;
+  background-clip: text;
+}
+@keyframes icon-pulse {
+  0% {
+    background-color: var(--mainWhite);
+  }
+  50% {
+    background-color: var(--mainRed);
+  }
+  100% {
+    background-color: var(--mainWhite);
+  }
+}
