@@ -1,10 +1,10 @@
 import {
-  GET_SHARE_REQUESTS_REQUEST,
-  GET_SHARE_REQUESTS_SUCCESS,
-  GET_SHARE_REQUESTS_FAIL,
-  GET_SENT_SHARE_REQUESTS_REQUEST,
-  GET_SENT_SHARE_REQUESTS_SUCCESS,
-  GET_SENT_SHARE_REQUESTS_FAIL,
+  SHARE_REQUESTS_REQUEST,
+  SHARE_REQUESTS_SUCCESS,
+  SHARE_REQUESTS_FAIL,
+  SENT_SHARE_REQUESTS_REQUEST,
+  SENT_SHARE_REQUESTS_SUCCESS,
+  SENT_SHARE_REQUESTS_FAIL,
   CREATE_SHARE_REQUEST_SUCCESS,
   CREATE_SHARE_REQUEST_REQUEST,
   CREATE_SHARE_REQUEST_FAIL,
@@ -14,7 +14,7 @@ import axios from "axios";
 export const getReceivedShareRequests = () => async (dispatch, getState) => {
   try {
     dispatch({
-      type: GET_SHARE_REQUESTS_REQUEST,
+      type: SHARE_REQUESTS_REQUEST,
     });
 
     const {
@@ -30,12 +30,12 @@ export const getReceivedShareRequests = () => async (dispatch, getState) => {
     const { data } = await axios.get(`/api/sharerequests/received`, config);
 
     dispatch({
-      type: GET_SHARE_REQUESTS_SUCCESS,
+      type: SHARE_REQUESTS_SUCCESS,
       payload: data,
     });
   } catch (error) {
     dispatch({
-      type: GET_SHARE_REQUESTS_FAIL,
+      type: SHARE_REQUESTS_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
@@ -47,7 +47,7 @@ export const getReceivedShareRequests = () => async (dispatch, getState) => {
 export const getSentShareRequests = () => async (dispatch, getState) => {
   try {
     dispatch({
-      type: GET_SENT_SHARE_REQUESTS_REQUEST,
+      type: SENT_SHARE_REQUESTS_REQUEST,
     });
 
     const {
@@ -63,12 +63,12 @@ export const getSentShareRequests = () => async (dispatch, getState) => {
     const { data } = await axios.get(`/api/sharerequests/sent`, config);
 
     dispatch({
-      type: GET_SENT_SHARE_REQUESTS_SUCCESS,
+      type: SENT_SHARE_REQUESTS_SUCCESS,
       payload: data,
     });
   } catch (error) {
     dispatch({
-      type: GET_SENT_SHARE_REQUESTS_FAIL,
+      type: SENT_SHARE_REQUESTS_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

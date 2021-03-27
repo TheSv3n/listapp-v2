@@ -41,7 +41,7 @@ export const userDetailsReducer = (state = {}, action) => {
     case USER_DETAILS_FAIL:
       return { loading: false, error: action.payload };
     case USER_DETAILS_RESET: {
-      return { user: {} };
+      return {};
     }
     default:
       return state;
@@ -72,7 +72,7 @@ export const friendDetailsReducer = (state = {}, action) => {
     case USER_FRIENDLIST_FAIL:
       return { loading: false, error: action.payload };
     case USER_FRIENDLIST_RESET:
-      return { friendList: [] };
+      return {};
     default:
       return state;
   }

@@ -1,8 +1,8 @@
 import {
-  GET_LIST_ITEMS_REQUEST,
-  GET_LIST_ITEMS_SUCCESS,
-  GET_LIST_ITEMS_FAIL,
-  GET_LIST_ITEMS_RESET,
+  LIST_ITEMS_REQUEST,
+  LIST_ITEMS_SUCCESS,
+  LIST_ITEMS_FAIL,
+  LIST_ITEMS_RESET,
   CREATE_LIST_ITEM_REQUEST,
   CREATE_LIST_ITEM_SUCCESS,
   CREATE_LIST_ITEM_FAIL,
@@ -17,24 +17,22 @@ import {
 
 export const listItemsReducer = (state = { items: [] }, action) => {
   switch (action.type) {
-    case GET_LIST_ITEMS_REQUEST:
+    case LIST_ITEMS_REQUEST:
       return {
         loading: true,
       };
-    case GET_LIST_ITEMS_SUCCESS:
+    case LIST_ITEMS_SUCCESS:
       return {
         loading: false,
         items: action.payload,
       };
-    case GET_LIST_ITEMS_FAIL:
+    case LIST_ITEMS_FAIL:
       return {
         loading: false,
         error: action.payload,
       };
-    case GET_LIST_ITEMS_RESET:
-      return {
-        lists: [],
-      };
+    case LIST_ITEMS_RESET:
+      return {};
     default:
       return state;
   }

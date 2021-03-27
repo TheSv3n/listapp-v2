@@ -17,6 +17,16 @@ import {
   USER_FRIENDLIST_FAIL,
   USER_FRIENDLIST_RESET,
 } from "../constants/userConstants";
+import {
+  USER_LISTS_RESET,
+  SHARED_LISTS_RESET,
+  LIST_INFO_RESET,
+} from "../constants/listContstants";
+import { LIST_ITEMS_RESET } from "../constants/listItemConstants";
+import {
+  SHARE_REQUESTS_RESET,
+  SENT_SHARE_REQUESTS_RESET,
+} from "../constants/shareRequestConstants";
 
 export const login = (userName, password) => async (dispatch) => {
   try {
@@ -58,6 +68,13 @@ export const logout = () => (dispatch) => {
   dispatch({ type: USER_LOGOUT });
   dispatch({ type: USER_DETAILS_RESET });
   dispatch({ type: USER_REGISTER_RESET });
+  dispatch({ type: USER_FRIENDLIST_RESET });
+  dispatch({ type: SHARED_LISTS_RESET });
+  dispatch({ type: USER_LISTS_RESET });
+  dispatch({ type: LIST_ITEMS_RESET });
+  dispatch({ type: LIST_INFO_RESET });
+  dispatch({ type: SENT_SHARE_REQUESTS_RESET });
+  dispatch({ type: SHARE_REQUESTS_RESET });
 };
 
 export const getUserDetails = (id) => async (dispatch, getState) => {

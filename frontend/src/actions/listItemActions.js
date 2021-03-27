@@ -1,12 +1,10 @@
 import {
-  GET_LIST_ITEMS_REQUEST,
-  GET_LIST_ITEMS_SUCCESS,
-  GET_LIST_ITEMS_FAIL,
-  GET_LIST_ITEMS_RESET,
+  LIST_ITEMS_REQUEST,
+  LIST_ITEMS_SUCCESS,
+  LIST_ITEMS_FAIL,
   CREATE_LIST_ITEM_REQUEST,
   CREATE_LIST_ITEM_SUCCESS,
   CREATE_LIST_ITEM_FAIL,
-  CREATE_LIST_ITEM_RESET,
   COMPLETE_LIST_ITEM_REQUEST,
   COMPLETE_LIST_ITEM_SUCCESS,
   COMPLETE_LIST_ITEM_FAIL,
@@ -16,7 +14,7 @@ import axios from "axios";
 export const getListItems = (listId) => async (dispatch, getState) => {
   try {
     dispatch({
-      type: GET_LIST_ITEMS_REQUEST,
+      type: LIST_ITEMS_REQUEST,
     });
 
     const {
@@ -32,12 +30,12 @@ export const getListItems = (listId) => async (dispatch, getState) => {
     const { data } = await axios.get(`/api/listitems/${listId}`, config);
 
     dispatch({
-      type: GET_LIST_ITEMS_SUCCESS,
+      type: LIST_ITEMS_SUCCESS,
       payload: data,
     });
   } catch (error) {
     dispatch({
-      type: GET_LIST_ITEMS_FAIL,
+      type: LIST_ITEMS_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

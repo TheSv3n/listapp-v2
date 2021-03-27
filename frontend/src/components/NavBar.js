@@ -39,7 +39,7 @@ const NavBar = () => {
             <i className="fas fa-envelope nav-item-icon mr-2" />
           )}
         </Link>
-        <Link to="/userOptions" style={{ textDecoration: "none" }}>
+        <Link to="/profile" style={{ textDecoration: "none" }}>
           <i className="fas fa-cog nav-item-icon" />
         </Link>
       </div>

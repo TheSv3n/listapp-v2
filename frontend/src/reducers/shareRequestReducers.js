@@ -1,10 +1,12 @@
 import {
-  GET_SHARE_REQUESTS_REQUEST,
-  GET_SHARE_REQUESTS_SUCCESS,
-  GET_SHARE_REQUESTS_FAIL,
-  GET_SENT_SHARE_REQUESTS_REQUEST,
-  GET_SENT_SHARE_REQUESTS_SUCCESS,
-  GET_SENT_SHARE_REQUESTS_FAIL,
+  SHARE_REQUESTS_REQUEST,
+  SHARE_REQUESTS_SUCCESS,
+  SHARE_REQUESTS_FAIL,
+  SHARE_REQUESTS_RESET,
+  SENT_SHARE_REQUESTS_REQUEST,
+  SENT_SHARE_REQUESTS_SUCCESS,
+  SENT_SHARE_REQUESTS_FAIL,
+  SENT_SHARE_REQUESTS_RESET,
   CREATE_SHARE_REQUEST_SUCCESS,
   CREATE_SHARE_REQUEST_REQUEST,
   CREATE_SHARE_REQUEST_FAIL,
@@ -13,21 +15,22 @@ import {
 
 export const receivedShareRequestsReducer = (state = {}, action) => {
   switch (action.type) {
-    case GET_SHARE_REQUESTS_REQUEST:
+    case SHARE_REQUESTS_REQUEST:
       return {
         loading: true,
       };
-    case GET_SHARE_REQUESTS_SUCCESS:
+    case SHARE_REQUESTS_SUCCESS:
       return {
         loading: false,
         requests: action.payload,
       };
-    case GET_SHARE_REQUESTS_FAIL:
+    case SHARE_REQUESTS_FAIL:
       return {
         loading: false,
         error: action.payload,
       };
-
+    case SHARE_REQUESTS_RESET:
+      return {};
     default:
       return state;
   }
@@ -35,21 +38,22 @@ export const receivedShareRequestsReducer = (state = {}, action) => {
 
 export const sentShareRequestsReducer = (state = {}, action) => {
   switch (action.type) {
-    case GET_SENT_SHARE_REQUESTS_REQUEST:
+    case SENT_SHARE_REQUESTS_REQUEST:
       return {
         loading: true,
       };
-    case GET_SENT_SHARE_REQUESTS_SUCCESS:
+    case SENT_SHARE_REQUESTS_SUCCESS:
       return {
         loading: false,
         requests: action.payload,
       };
-    case GET_SENT_SHARE_REQUESTS_FAIL:
+    case SENT_SHARE_REQUESTS_FAIL:
       return {
         loading: false,
         error: action.payload,
       };
-
+    case SENT_SHARE_REQUESTS_RESET:
+      return {};
     default:
       return state;
   }

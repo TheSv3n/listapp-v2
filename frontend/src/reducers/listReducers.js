@@ -110,6 +110,8 @@ export const listInfoReducer = (state = {}, action) => {
         loading: false,
         error: action.payload,
       };
+    case LIST_INFO_RESET:
+      return {};
     default:
       return state;
   }
