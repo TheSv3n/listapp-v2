@@ -7,9 +7,7 @@ const ShareRequest = ({ shareRequest }) => {
   const dispatch = useDispatch();
 
   const handleShareResponse = (response) => {
-    dispatch(
-      shareRequestRespond(shareRequest._id, shareRequest.listId, response)
-    );
+    dispatch(shareRequestRespond(shareRequest._id, response));
     if (response === 1) {
       dispatch(listShareAdd(shareRequest.listId, shareRequest.requestTo));
     }
