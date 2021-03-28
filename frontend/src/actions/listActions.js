@@ -12,6 +12,9 @@ import {
   LIST_INFO_REQUEST,
   LIST_INFO_SUCCESS,
   LIST_INFO_FAIL,
+  LIST_SHARE_ADD_REQUEST,
+  LIST_SHARE_ADD_SUCCESS,
+  LIST_SHARE_ADD_FAIL,
 } from "../constants/listContstants";
 
 export const getUsersLists = () => async (dispatch, getState) => {
@@ -140,6 +143,43 @@ export const getListInfo = (listId) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: LIST_INFO_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const listShareAdd = (listId, userId) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: LIST_SHARE_ADD_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.put(
+      `/api/lists/${listId}/shareadd`,
+      { userId: userId },
+      config
+    );
+
+    dispatch({
+      type: LIST_SHARE_ADD_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: LIST_SHARE_ADD_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

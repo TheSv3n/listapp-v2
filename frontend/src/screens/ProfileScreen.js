@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { getUserDetails, logout } from "../actions/userActions";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../components/Loader";

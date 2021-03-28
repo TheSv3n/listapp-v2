@@ -59,15 +59,16 @@ const updateListFinished = asyncHandler(async (req, res) => {
   }
 });
 
-//@desc Update lists shared user list
-//@route PUT /api/lists/:id/sharelist
+//@desc Update lists shared user list - add user
+//@route PUT /api/lists/:id/shareadd
 //@access Private
-const updateListShares = asyncHandler(async (req, res) => {
+const addListShare = asyncHandler(async (req, res) => {
   const list = await List.findById(req.params.id);
 
   if (list) {
-    list.sharedWith = req.body.sharedWith;
-
+    //list.sharedWith = req.body.sharedWith;
+    let tempShares = [...list.sharedWith, req.body.userId];
+    list.sharedWith = tempShares;
     const updatedList = await list.save();
     res.json(updatedList);
   } else {
@@ -94,7 +95,7 @@ export {
   createList,
   getUserLists,
   updateListFinished,
-  updateListShares,
+  addListShare,
   getSharedLists,
   getListInfo,
 };

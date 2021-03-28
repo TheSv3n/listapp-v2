@@ -11,6 +11,9 @@ import {
   CREATE_SHARE_REQUEST_REQUEST,
   CREATE_SHARE_REQUEST_FAIL,
   CREATE_SHARE_REQUEST_RESET,
+  RESPOND_SHARE_REQUEST_REQUEST,
+  RESPOND_SHARE_REQUEST_SUCCESS,
+  RESPOND_SHARE_REQUEST_FAIL,
 } from "../constants/shareRequestConstants";
 
 export const receivedShareRequestsReducer = (state = {}, action) => {
@@ -79,6 +82,28 @@ export const shareRequestCreateReducer = (state = {}, action) => {
     case CREATE_SHARE_REQUEST_RESET:
       return {
         state: {},
+      };
+    default:
+      return state;
+  }
+};
+
+export const shareRequestRespondReducer = (state = {}, action) => {
+  switch (action.type) {
+    case RESPOND_SHARE_REQUEST_REQUEST:
+      return {
+        loading: true,
+      };
+    case RESPOND_SHARE_REQUEST_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+        list: action.payload,
+      };
+    case RESPOND_SHARE_REQUEST_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
       };
     default:
       return state;

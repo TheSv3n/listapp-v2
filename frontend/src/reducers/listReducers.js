@@ -15,6 +15,9 @@ import {
   LIST_INFO_SUCCESS,
   LIST_INFO_FAIL,
   LIST_INFO_RESET,
+  LIST_SHARE_ADD_REQUEST,
+  LIST_SHARE_ADD_SUCCESS,
+  LIST_SHARE_ADD_FAIL,
 } from "../constants/listContstants";
 
 export const usersListsReducer = (state = { lists: [] }, action) => {
@@ -112,6 +115,27 @@ export const listInfoReducer = (state = {}, action) => {
       };
     case LIST_INFO_RESET:
       return {};
+    default:
+      return state;
+  }
+};
+
+export const listAddShareReducer = (state = {}, action) => {
+  switch (action.type) {
+    case LIST_SHARE_ADD_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case LIST_SHARE_ADD_SUCCESS:
+      return {
+        loading: false,
+      };
+    case LIST_SHARE_ADD_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
     default:
       return state;
   }

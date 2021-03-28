@@ -32,7 +32,7 @@ const NavBar = () => {
         <Link to="/friendsList" style={{ textDecoration: "none" }}>
           <i className="fas fa-user-friends nav-item-icon mr-2" />
         </Link>
-        <Link to="/messageCentre" style={{ textDecoration: "none" }}>
+        <Link to="/messagecentre" style={{ textDecoration: "none" }}>
           {requests && requests.length > 0 ? (
             <i className="fas fa-envelope nav-item-icon mr-2 icon-has-message" />
           ) : (
