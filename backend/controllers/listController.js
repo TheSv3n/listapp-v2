@@ -66,8 +66,26 @@ const addListShare = asyncHandler(async (req, res) => {
   const list = await List.findById(req.params.id);
 
   if (list) {
-    //list.sharedWith = req.body.sharedWith;
     let tempShares = [...list.sharedWith, req.body.userId];
+    list.sharedWith = tempShares;
+    const updatedList = await list.save();
+    res.json(updatedList);
+  } else {
+    res.status(404);
+    throw new Error("List not Found");
+  }
+});
+
+//@desc Update lists shared user list - remove user
+//@route PUT /api/lists/:id/shareremove
+//@access Private
+const removeListShare = asyncHandler(async (req, res) => {
+  const list = await List.findById(req.params.id);
+
+  if (list) {
+    let tempShares = [...list.sharedWith];
+    let index = tempShares.indexOf(req.body.userId);
+    tempShares.splice(index, 1);
     list.sharedWith = tempShares;
     const updatedList = await list.save();
     res.json(updatedList);
@@ -96,6 +114,7 @@ export {
   getUserLists,
   updateListFinished,
   addListShare,
+  removeListShare,
   getSharedLists,
   getListInfo,
 };

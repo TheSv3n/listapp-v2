@@ -15,6 +15,9 @@ import {
   LIST_SHARE_ADD_REQUEST,
   LIST_SHARE_ADD_SUCCESS,
   LIST_SHARE_ADD_FAIL,
+  LIST_SHARE_REMOVE_REQUEST,
+  LIST_SHARE_REMOVE_SUCCESS,
+  LIST_SHARE_REMOVE_FAIL,
 } from "../constants/listContstants";
 
 export const getUsersLists = () => async (dispatch, getState) => {
@@ -180,6 +183,47 @@ export const listShareAdd = (listId, userId) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: LIST_SHARE_ADD_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const listShareRemove = (listId, friendId) => async (
+  dispatch,
+  getState
+) => {
+  try {
+    dispatch({
+      type: LIST_SHARE_REMOVE_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.put(
+      `/api/lists/${listId}/shareremove`,
+      { userId: friendId },
+      config
+    );
+
+    dispatch({
+      type: LIST_SHARE_REMOVE_SUCCESS,
+      payload: data,
+    });
+    dispatch(getListInfo(listId));
+  } catch (error) {
+    dispatch({
+      type: LIST_SHARE_REMOVE_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

@@ -140,7 +140,7 @@ const NewItemEditor = ({ history, listId }) => {
                   if (list.sharedWith.length === 0) {
                     return "";
                   } else {
-                    for (var i = 0; i < list.sharedWith.length; i++) {
+                    for (let i = 0; i < list.sharedWith.length; i++) {
                       if (friend._id === list.sharedWith[i]) {
                         isShared = true;
                         return (
@@ -164,8 +164,7 @@ const NewItemEditor = ({ history, listId }) => {
                           />
                         );
                       } else {
-                        //console.log("returned");
-                        return "";
+                        //return "";
                       }
                     }
                   }

@@ -121,12 +121,7 @@ const getFriendList = asyncHandler(async (req, res) => {
     }
   }
 
-  if (friends.length > 0) {
-    res.json(friends);
-  } else {
-    res.status(404);
-    throw new Error("No Friends in list");
-  }
+  res.json(friends);
 });
 
 export {

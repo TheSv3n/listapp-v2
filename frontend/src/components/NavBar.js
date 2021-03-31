@@ -29,7 +29,7 @@ const NavBar = () => {
       </div>
       <div className="mx-auto title-text">ListApp v2</div>
       <div className="ml-auto mr-4 title-text">
-        <Link to="/friendsList" style={{ textDecoration: "none" }}>
+        <Link to="/friendlist" style={{ textDecoration: "none" }}>
           <i className="fas fa-user-friends nav-item-icon mr-2" />
         </Link>
         <Link to="/messagecentre" style={{ textDecoration: "none" }}>
