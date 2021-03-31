@@ -72,7 +72,7 @@ const FriendsListScreen = ({ history }) => {
                     <FriendElement
                       key={friend._id}
                       friend={friend}
-                      inFriends={true}
+                      isFriend={true}
                     />
                   );
                 })
