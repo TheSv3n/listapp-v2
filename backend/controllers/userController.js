@@ -124,10 +124,23 @@ const getFriendList = asyncHandler(async (req, res) => {
   res.json(friends);
 });
 
+//@desc Get search results
+//@route GET /api/users/search?searchString
+//@access Private
+const getSearchResults = asyncHandler(async (req, res) => {
+  const searchString = req.query.searchString;
+  const users = await User.find({
+    userName: { $regex: new RegExp(searchString, "i") },
+  }).select("-password");
+
+  res.json(users);
+});
+
 export {
   registerUser,
   authUser,
   updateUserFriendList,
   getUserById,
   getFriendList,
+  getSearchResults,
 };

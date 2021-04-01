@@ -12,7 +12,7 @@ const FriendElement = ({ friend, isFriend, isUser, friendRequested }) => {
   const { user } = userDetails;
 
   for (var i = 0; i < user.friends.length; i++) {
-    if (friend._id === user.friends[i]._id || friend._id === user._id) {
+    if (friend._id === user.friends[i] || friend._id === user._id) {
       resultFriend = true;
     }
   }

@@ -1,9 +1,15 @@
 import React, { useState } from "react";
+import { searchUsers } from "../actions/userActions";
+import { useDispatch, useSelector } from "react-redux";
 
 const UserSearch = () => {
+  const dispatch = useDispatch();
   const [userName, setUserName] = useState("");
-  const handleSubmitSearch = () => {
-    //TODO
+  const handleSubmitSearch = (e) => {
+    e.preventDefault();
+    if (userName.length > 0) {
+      dispatch(searchUsers(userName));
+    }
   };
   return (
     <>

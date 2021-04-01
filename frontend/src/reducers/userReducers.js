@@ -15,6 +15,10 @@ import {
   USER_FRIENDLIST_SUCCESS,
   USER_FRIENDLIST_FAIL,
   USER_FRIENDLIST_RESET,
+  USER_SEARCH_REQUEST,
+  USER_SEARCH_SUCCESS,
+  USER_SEARCH_FAIL,
+  USER_SEARCH_RESET,
 } from "../constants/userConstants";
 
 export const userLoginReducer = (state = {}, action) => {
@@ -72,6 +76,21 @@ export const friendDetailsReducer = (state = {}, action) => {
     case USER_FRIENDLIST_FAIL:
       return { loading: false, error: action.payload };
     case USER_FRIENDLIST_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+
+export const searchResultsReducer = (state = {}, action) => {
+  switch (action.type) {
+    case USER_SEARCH_REQUEST:
+      return { loading: true };
+    case USER_SEARCH_SUCCESS:
+      return { loading: false, results: action.payload };
+    case USER_SEARCH_FAIL:
+      return { loading: false, error: action.payload };
+    case USER_SEARCH_RESET:
       return {};
     default:
       return state;

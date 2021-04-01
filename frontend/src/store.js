@@ -6,6 +6,7 @@ import {
   userDetailsReducer,
   userRegisterReducer,
   friendDetailsReducer,
+  searchResultsReducer,
 } from "./reducers/userReducers";
 import {
   usersListsReducer,
@@ -22,11 +23,16 @@ import {
   shareRequestCreateReducer,
   receivedShareRequestsReducer,
 } from "./reducers/shareRequestReducers";
+import {
+  receivedFriendRequestsReducer,
+  sentFriendRequestsReducer,
+} from "./reducers/friendRequestReducers";
 
 const reducer = combineReducers({
   userLogin: userLoginReducer,
   userDetails: userDetailsReducer,
   userRegister: userRegisterReducer,
+  searchResults: searchResultsReducer,
   usersLists: usersListsReducer,
   sharedLists: sharedListsReducer,
   listInfo: listInfoReducer,
@@ -37,6 +43,8 @@ const reducer = combineReducers({
   shareRequestCreate: shareRequestCreateReducer,
   receivedShareRequests: receivedShareRequestsReducer,
   sentShareRequests: sentShareRequestsReducer,
+  receivedFriendRequests: receivedFriendRequestsReducer,
+  sentFriendRequests: sentFriendRequestsReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")

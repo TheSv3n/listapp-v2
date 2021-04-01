@@ -16,6 +16,9 @@ import {
   USER_FRIENDLIST_SUCCESS,
   USER_FRIENDLIST_FAIL,
   USER_FRIENDLIST_RESET,
+  USER_SEARCH_REQUEST,
+  USER_SEARCH_SUCCESS,
+  USER_SEARCH_FAIL,
 } from "../constants/userConstants";
 import {
   USER_LISTS_RESET,
@@ -187,6 +190,43 @@ export const getFriendList = (friendList) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: USER_FRIENDLIST_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const searchUsers = (searchString) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: USER_SEARCH_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.get(
+      `/api/users/search?searchString=${searchString}`,
+      config
+    );
+
+    dispatch({
+      type: USER_SEARCH_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: USER_SEARCH_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

@@ -3,6 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import UserSearch from "../components/UserSearch";
 import FriendElement from "../components/FriendElement";
 import { getUserDetails, getFriendList } from "../actions/userActions";
+import {
+  getReceivedFrienRequests,
+  getSentFriendRequests,
+} from "../actions/friendRequestActions";
 import Loader from "../components/Loader";
 
 const FriendsListScreen = ({ history }) => {
@@ -17,6 +21,24 @@ const FriendsListScreen = ({ history }) => {
   const friendDetails = useSelector((state) => state.friendDetails);
   const { loading, error, friendList } = friendDetails;
 
+  const searchResults = useSelector((state) => state.searchResults);
+  const {
+    loading: resultsLoading,
+    error: resultsError,
+    results,
+  } = searchResults;
+
+  const sentFriendRequests = useSelector((state) => state.sentFriendRequests);
+  const { requests: sentRequests } = sentFriendRequests;
+
+  const receivedFriendRequests = useSelector(
+    (state) => state.receivedFriendRequests
+  );
+  const {
+    loading: receivedLoading,
+    requests: receivedRequests,
+  } = receivedFriendRequests;
+
   useEffect(() => {
     if (!userInfo) {
       history.push("/login");
@@ -25,6 +47,8 @@ const FriendsListScreen = ({ history }) => {
         dispatch(getUserDetails(userInfo._id));
       } else if (!friendList) {
         dispatch(getFriendList(user.friends));
+      } else if (!sentRequests) {
+        dispatch(getSentFriendRequests());
       }
     }
   }, [dispatch, userInfo, user, friendList, history]);
@@ -37,28 +61,28 @@ const FriendsListScreen = ({ history }) => {
             <UserSearch />
             <div className="text-center">Search Results</div>
             <>
-              {/*(value) => {
-                return value.friendSearchResults.map((user) => {
-                  let friendRequested = "false";
+              {resultsLoading ? (
+                <Loader />
+              ) : (
+                results &&
+                results.map((userResult) => {
+                  let friendRequested = false;
 
-                  for (let i = 0; i < value.sentFriendRequests.length; i++) {
-                    if (user._id === value.sentFriendRequests[i].requestTo) {
-                      friendRequested = "true";
+                  for (let i = 0; i < sentRequests.length; i++) {
+                    if (userResult._id === sentRequests[i].requestTo) {
+                      friendRequested = true;
                     }
                   }
 
                   return (
                     <FriendElement
-                      key={user._id}
-                      friend={user}
-                      inFriends="false"
-                      friendsList={value.friendsList}
+                      key={userResult._id}
+                      friend={userResult}
                       friendRequested={friendRequested}
-                      user={value.user}
                     />
                   );
-                });
-              }*/}
+                })
+              )}
             </>
 
             <div className="text-center">Friends</div>
