@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { getUserDetails, logout } from "../actions/userActions";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../components/Loader";
+import { getReceivedFriendRequests } from "../actions/friendRequestActions";
+import { getReceivedShareRequests } from "../actions/shareRequestActions";
 
 const ProfileScreen = ({ history }) => {
   const dispatch = useDispatch();
@@ -18,6 +20,8 @@ const ProfileScreen = ({ history }) => {
       if (!user) {
         dispatch(getUserDetails(userInfo._id));
       }
+      dispatch(getReceivedShareRequests());
+      dispatch(getReceivedFriendRequests());
     }
   }, [dispatch, userInfo, user, history]);
 

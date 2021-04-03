@@ -14,7 +14,7 @@ import {
 } from "../constants/friendRequestConstants";
 import axios from "axios";
 
-export const getReceivedFrienRequests = () => async (dispatch, getState) => {
+export const getReceivedFriendRequests = () => async (dispatch, getState) => {
   try {
     dispatch({
       type: FRIEND_REQUESTS_REQUEST,
@@ -72,6 +72,47 @@ export const getSentFriendRequests = () => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: SENT_FRIEND_REQUESTS_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const friendRequestRespond = (requestId, response) => async (
+  dispatch,
+  getState
+) => {
+  try {
+    dispatch({
+      type: RESPOND_FRIEND_REQUEST_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.put(
+      `/api/friendrequests/${requestId}/respond`,
+      { response: response },
+      config
+    );
+
+    dispatch({
+      type: RESPOND_FRIEND_REQUEST_SUCCESS,
+      payload: data,
+    });
+    dispatch(getReceivedFriendRequests());
+  } catch (error) {
+    dispatch({
+      type: RESPOND_FRIEND_REQUEST_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getReceivedShareRequests } from "../actions/shareRequestActions";
+import { getReceivedFriendRequests } from "../actions/friendRequestActions";
 
 const NavBar = () => {
   const dispatch = useDispatch();
@@ -12,13 +13,23 @@ const NavBar = () => {
   const receivedShareRequests = useSelector(
     (state) => state.receivedShareRequests
   );
-  const { requests } = receivedShareRequests;
+  const { requests: shareRequests } = receivedShareRequests;
+
+  const receivedFriendRequests = useSelector(
+    (state) => state.receivedFriendRequests
+  );
+  const { requests: friendRequests } = receivedFriendRequests;
 
   useEffect(() => {
-    /*if (userInfo && !requests) {
-      dispatch(getReceivedShareRequests());
-    }*/
-  }, [dispatch, userInfo, requests]);
+    if (userInfo) {
+      if (!shareRequests) {
+        dispatch(getReceivedShareRequests());
+      }
+      if (!friendRequests) {
+        dispatch(getReceivedFriendRequests());
+      }
+    }
+  }, [dispatch, userInfo, shareRequests, friendRequests]);
 
   return (
     <div className="navbar">
@@ -30,10 +41,14 @@ const NavBar = () => {
       <div className="mx-auto title-text">ListApp v2</div>
       <div className="ml-auto mr-4 title-text">
         <Link to="/friendlist" style={{ textDecoration: "none" }}>
-          <i className="fas fa-user-friends nav-item-icon mr-2" />
+          {friendRequests && friendRequests.length > 0 ? (
+            <i className="fas fa-user-friends nav-item-icon mr-2 icon-has-message" />
+          ) : (
+            <i className="fas fa-user-friends nav-item-icon mr-2" />
+          )}
         </Link>
         <Link to="/messagecentre" style={{ textDecoration: "none" }}>
-          {requests && requests.length > 0 ? (
+          {shareRequests && shareRequests.length > 0 ? (
             <i className="fas fa-envelope nav-item-icon mr-2 icon-has-message" />
           ) : (
             <i className="fas fa-envelope nav-item-icon mr-2" />

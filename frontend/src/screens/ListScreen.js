@@ -6,6 +6,7 @@ import Loader from "../components/Loader";
 import NewItemEditor from "../components/NewItemEditor";
 import ListItem from "../components/ListItem";
 import { getReceivedShareRequests } from "../actions/shareRequestActions";
+import { getReceivedFriendRequests } from "../actions/friendRequestActions";
 
 const ListScreen = ({ match, history }) => {
   const listId = match.params.id;
@@ -28,6 +29,7 @@ const ListScreen = ({ match, history }) => {
       dispatch(getListInfo(listId));
       dispatch(getListItems(listId));
       dispatch(getReceivedShareRequests());
+      dispatch(getReceivedFriendRequests());
     }
   }, [dispatch, history, userInfo, listId]);
 

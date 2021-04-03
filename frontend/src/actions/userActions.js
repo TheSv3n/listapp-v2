@@ -19,6 +19,9 @@ import {
   USER_SEARCH_REQUEST,
   USER_SEARCH_SUCCESS,
   USER_SEARCH_FAIL,
+  USER_FRIEND_ADD_REQUEST,
+  USER_FRIEND_ADD_SUCCESS,
+  USER_FRIEND_ADD_FAIL,
 } from "../constants/userConstants";
 import {
   USER_LISTS_RESET,
@@ -227,6 +230,55 @@ export const searchUsers = (searchString) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: USER_SEARCH_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const userFriendAdd = (userId, friendId) => async (
+  dispatch,
+  getState
+) => {
+  try {
+    dispatch({
+      type: USER_FRIEND_ADD_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.put(
+      `/api/users/${userId}/friendadd`,
+      { friendId: friendId },
+      config
+    );
+
+    dispatch({
+      type: USER_FRIEND_ADD_SUCCESS,
+      payload: data,
+    });
+    console.log(userId, userInfo._id);
+    if (userId === userInfo._id) {
+      dispatch(getUserDetails(userId));
+      const {
+        userDetails: { user },
+      } = getState();
+
+      dispatch(getFriendList(user.friends));
+    }
+  } catch (error) {
+    dispatch({
+      type: USER_FRIEND_ADD_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

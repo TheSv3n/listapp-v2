@@ -49,10 +49,13 @@ const NewItemEditor = ({ history, listId }) => {
     } else {
       if (!user) {
         dispatch(getUserDetails(userInfo._id));
-      } else if (!friendList) {
-        dispatch(getFriendList(user.friends));
-      } else if (!requests) {
-        dispatch(getSentShareRequests());
+      } else {
+        if (!friendList) {
+          dispatch(getFriendList(user.friends));
+        }
+        if (!requests) {
+          dispatch(getSentShareRequests());
+        }
       }
     }
   }, [dispatch, userInfo, user, friendList, requests, history]);

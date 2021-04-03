@@ -75,20 +75,20 @@ const authUser = asyncHandler(async (req, res) => {
   }
 });
 
-//@desc Update users friends list
-//@route PUT /api/users/:id/friendlist
+//@desc Update users friends list - add friend
+//@route PUT /api/users/:id/friendadd
 //@access Private
-const updateUserFriendList = asyncHandler(async (req, res) => {
+const addUserFriend = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id);
 
   if (user) {
-    user.friends = req.body.friends;
-
+    let tempFriends = [...user.friends, req.body.friendId];
+    user.friends = tempFriends;
     const updatedUser = await user.save();
     res.json(updatedUser);
   } else {
     res.status(404);
-    throw new Error("List not Found");
+    throw new Error("User not Found");
   }
 });
 
@@ -139,7 +139,7 @@ const getSearchResults = asyncHandler(async (req, res) => {
 export {
   registerUser,
   authUser,
-  updateUserFriendList,
+  addUserFriend,
   getUserById,
   getFriendList,
   getSearchResults,

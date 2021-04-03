@@ -4,6 +4,7 @@ import Loader from "../components/Loader";
 import ConversationListElement from "../components/ConversationListElement";
 import { useDispatch, useSelector } from "react-redux";
 import { getReceivedShareRequests } from "../actions/shareRequestActions";
+import { getReceivedFriendRequests } from "../actions/friendRequestActions";
 
 const MessageCentreScreen = ({ history }) => {
   const dispatch = useDispatch();
@@ -21,6 +22,7 @@ const MessageCentreScreen = ({ history }) => {
       history.push("/login");
     } else {
       dispatch(getReceivedShareRequests());
+      dispatch(getReceivedFriendRequests());
     }
   }, [dispatch, history, userInfo]);
 

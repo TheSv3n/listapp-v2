@@ -5,6 +5,7 @@ import ListEditor from "../components/ListEditor";
 import Loader from "../components/Loader";
 import { getUsersLists, getSharedLists } from "../actions/listActions";
 import { getReceivedShareRequests } from "../actions/shareRequestActions";
+import { getReceivedFriendRequests } from "../actions/friendRequestActions";
 
 const ListMenuScreen = ({ history }) => {
   const dispatch = useDispatch();
@@ -29,6 +30,7 @@ const ListMenuScreen = ({ history }) => {
       dispatch(getUsersLists());
       dispatch(getSharedLists());
       dispatch(getReceivedShareRequests());
+      dispatch(getReceivedFriendRequests());
     }
   }, [dispatch, history, userInfo]);
   return (

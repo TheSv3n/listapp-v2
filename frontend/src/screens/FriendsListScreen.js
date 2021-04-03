@@ -2,9 +2,10 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import UserSearch from "../components/UserSearch";
 import FriendElement from "../components/FriendElement";
+import FriendRequest from "../components/FriendRequest";
 import { getUserDetails, getFriendList } from "../actions/userActions";
 import {
-  getReceivedFrienRequests,
+  getReceivedFriendRequests,
   getSentFriendRequests,
 } from "../actions/friendRequestActions";
 import Loader from "../components/Loader";
@@ -45,13 +46,27 @@ const FriendsListScreen = ({ history }) => {
     } else {
       if (!user) {
         dispatch(getUserDetails(userInfo._id));
-      } else if (!friendList) {
-        dispatch(getFriendList(user.friends));
-      } else if (!sentRequests) {
-        dispatch(getSentFriendRequests());
+      } else {
+        if (!friendList) {
+          dispatch(getFriendList(user.friends));
+        }
+        if (!sentRequests) {
+          dispatch(getSentFriendRequests());
+        }
+        if (!receivedRequests) {
+          dispatch(getReceivedFriendRequests());
+        }
       }
     }
-  }, [dispatch, userInfo, user, friendList, history]);
+  }, [
+    dispatch,
+    userInfo,
+    user,
+    friendList,
+    receivedRequests,
+    sentRequests,
+    history,
+  ]);
 
   return (
     <div className="container">
@@ -105,16 +120,19 @@ const FriendsListScreen = ({ history }) => {
 
             <div className="text-center">Friend Requests</div>
             <>
-              {/*(value) => {
-                return value.friendRequests.map((friendRequest) => {
+              {receivedLoading ? (
+                <Loader />
+              ) : (
+                receivedRequests &&
+                receivedRequests.map((friendRequest) => {
                   return (
                     <FriendRequest
                       key={friendRequest._id}
                       friendRequest={friendRequest}
                     />
                   );
-                });
-              }*/}
+                })
+              )}
             </>
           </ul>
         </div>

@@ -3,7 +3,7 @@ const router = express.Router();
 import {
   registerUser,
   authUser,
-  updateUserFriendList,
+  addUserFriend,
   getUserById,
   getFriendList,
   getSearchResults,
@@ -16,6 +16,6 @@ router.route("/search").get(protect, getSearchResults);
 router.route("/:id").get(protect, getUserById);
 router.route("/login").post(authUser);
 
-router.route("/:id/friendlist").put(protect, updateUserFriendList);
+router.route("/:id/friendadd").put(protect, addUserFriend);
 
 export default router;
