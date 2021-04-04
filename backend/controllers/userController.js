@@ -92,6 +92,25 @@ const addUserFriend = asyncHandler(async (req, res) => {
   }
 });
 
+//@desc Update users friends list - removefriend
+//@route PUT /api/users/:id/friendremove
+//@access Private
+const removeUserFriend = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id);
+
+  if (user) {
+    let tempFriends = [...user.friends];
+    let index = tempFriends.indexOf(req.body.friendId);
+    tempFriends.splice(index, 1);
+    user.friends = tempFriends;
+    const updatedUser = await user.save();
+    res.json(updatedUser);
+  } else {
+    res.status(404);
+    throw new Error("User not Found");
+  }
+});
+
 //@desc Get user by ID
 //@route GET /api/users/:id
 //@access Private
@@ -140,6 +159,7 @@ export {
   registerUser,
   authUser,
   addUserFriend,
+  removeUserFriend,
   getUserById,
   getFriendList,
   getSearchResults,

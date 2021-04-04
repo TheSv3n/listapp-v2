@@ -61,3 +61,29 @@ export const sentFriendRequestsReducer = (state = {}, action) => {
       return state;
   }
 };
+
+export const friendRequestCreateReducer = (state = {}, action) => {
+  switch (action.type) {
+    case CREATE_FRIEND_REQUEST_REQUEST:
+      return {
+        loading: true,
+      };
+    case CREATE_FRIEND_REQUEST_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+        list: action.payload,
+      };
+    case CREATE_FRIEND_REQUEST_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    case CREATE_FRIEND_REQUEST_RESET:
+      return {
+        state: {},
+      };
+    default:
+      return state;
+  }
+};

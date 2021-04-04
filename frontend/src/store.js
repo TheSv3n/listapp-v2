@@ -26,6 +26,7 @@ import {
 import {
   receivedFriendRequestsReducer,
   sentFriendRequestsReducer,
+  friendRequestCreateReducer,
 } from "./reducers/friendRequestReducers";
 
 const reducer = combineReducers({
@@ -45,6 +46,7 @@ const reducer = combineReducers({
   sentShareRequests: sentShareRequestsReducer,
   receivedFriendRequests: receivedFriendRequestsReducer,
   sentFriendRequests: sentFriendRequestsReducer,
+  friendRequestCreate: friendRequestCreateReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")

@@ -66,7 +66,7 @@ const NewItemEditor = ({ history, listId }) => {
   };
 
   return (
-    <li className="list-group-item text-capitalize my-1 my-md-2 my-lg-2">
+    <li className="list-group-item my-1 my-md-2 my-lg-2">
       <form onSubmit={handleSubmit}>
         <div className="row">
           <div className="input-group col-8  my-1 mr-auto">
@@ -77,7 +77,7 @@ const NewItemEditor = ({ history, listId }) => {
             </div>
             <input
               type="text"
-              className="form-control text-capitalize"
+              className="form-control"
               placeholder="Item"
               value={itemName}
               onChange={(e) => setItemName(e.target.value)}
@@ -92,7 +92,7 @@ const NewItemEditor = ({ history, listId }) => {
             </div>
             <input
               type="currency"
-              className="form-control text-capitalize"
+              className="form-control"
               placeholder="Price"
               value={cost}
               onChange={(e) => setCost(e.target.value)}

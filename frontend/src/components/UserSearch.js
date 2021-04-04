@@ -13,7 +13,7 @@ const UserSearch = () => {
   };
   return (
     <>
-      <li className="list-group-item text-capitalize my-2">
+      <li className="list-group-item my-2">
         <form onSubmit={handleSubmitSearch}>
           <div className="row">
             <div className="input-group col-6  my-1">
@@ -24,7 +24,7 @@ const UserSearch = () => {
               </div>
               <input
                 type="text"
-                className="form-control text-capitalize"
+                className="form-control"
                 placeholder="Enter Username"
                 value={userName}
                 onChange={(e) => setUserName(e.target.value)}

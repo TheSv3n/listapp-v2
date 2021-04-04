@@ -79,6 +79,7 @@ const FriendsListScreen = ({ history }) => {
               {resultsLoading ? (
                 <Loader />
               ) : (
+                sentRequests &&
                 results &&
                 results.map((userResult) => {
                   let friendRequested = false;

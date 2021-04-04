@@ -80,6 +80,41 @@ export const getSentFriendRequests = () => async (dispatch, getState) => {
   }
 };
 
+export const createFriendRequest = (request) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: CREATE_FRIEND_REQUEST_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.post(`/api/friendrequests`, request, config);
+
+    dispatch({
+      type: CREATE_FRIEND_REQUEST_SUCCESS,
+      payload: data,
+    });
+    dispatch(getSentFriendRequests());
+  } catch (error) {
+    dispatch({
+      type: CREATE_FRIEND_REQUEST_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
 export const friendRequestRespond = (requestId, response) => async (
   dispatch,
   getState

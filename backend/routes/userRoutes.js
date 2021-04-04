@@ -4,6 +4,7 @@ import {
   registerUser,
   authUser,
   addUserFriend,
+  removeUserFriend,
   getUserById,
   getFriendList,
   getSearchResults,
@@ -15,7 +16,7 @@ router.route("/friendlist").post(protect, getFriendList);
 router.route("/search").get(protect, getSearchResults);
 router.route("/:id").get(protect, getUserById);
 router.route("/login").post(authUser);
-
 router.route("/:id/friendadd").put(protect, addUserFriend);
+router.route("/:id/friendremove").put(protect, removeUserFriend);
 
 export default router;

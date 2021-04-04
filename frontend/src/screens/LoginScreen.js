@@ -161,7 +161,7 @@ const LoginScreen = ({ location, history }) => {
                       </div>
                       <input
                         type="text"
-                        className="form-control text-capitalize"
+                        className="form-control"
                         placeholder="First Name"
                         value={firstName}
                         onChange={(e) => setFirstName(e.target.value)}
@@ -175,7 +175,7 @@ const LoginScreen = ({ location, history }) => {
                       </div>
                       <input
                         type="text"
-                        className="form-control text-capitalize"
+                        className="form-control"
                         placeholder="Last Name"
                         value={lastName}
                         onChange={(e) => setLastName(e.target.value)}

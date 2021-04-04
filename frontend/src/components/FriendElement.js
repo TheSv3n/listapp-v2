@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { userFriendRemove } from "../actions/userActions";
+import { createFriendRequest } from "../actions/friendRequestActions";
 
 const FriendElement = ({ friend, isFriend, isUser, friendRequested }) => {
   let resultFriend = false;
@@ -18,11 +20,12 @@ const FriendElement = ({ friend, isFriend, isUser, friendRequested }) => {
   }
 
   const handleRemoveFriend = () => {
-    //TODO
+    dispatch(userFriendRemove(friend._id, user._id));
+    dispatch(userFriendRemove(user._id, friend._id));
   };
 
   const handleFriendRequest = () => {
-    //TODO
+    dispatch(createFriendRequest({ requestTo: friend._id }));
   };
 
   const handleNewMessage = () => {

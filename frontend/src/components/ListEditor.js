@@ -14,7 +14,7 @@ const ListEditor = () => {
   };
 
   return (
-    <li className="list-group-item text-capitalize my-1 my-md-2 my-lg-2">
+    <li className="list-group-item my-1 my-md-2 my-lg-2">
       <form onSubmit={handleNewList}>
         <div className="row">
           <div className="input-group col-12  my-1 mr-auto">
@@ -25,8 +25,8 @@ const ListEditor = () => {
             </div>
             <input
               type="text"
-              className="form-control text-capitalize"
-              placeholder="list name"
+              className="form-control"
+              placeholder="List Name"
               value={listName}
               onChange={(e) => setListName(e.target.value)}
             />
