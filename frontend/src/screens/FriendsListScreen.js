@@ -8,6 +8,7 @@ import {
   getReceivedFriendRequests,
   getSentFriendRequests,
 } from "../actions/friendRequestActions";
+import { updatePageHeading } from "../actions/navBarActions";
 import Loader from "../components/Loader";
 
 const FriendsListScreen = ({ history }) => {
@@ -56,6 +57,7 @@ const FriendsListScreen = ({ history }) => {
         if (!receivedRequests) {
           dispatch(getReceivedFriendRequests());
         }
+        dispatch(updatePageHeading(`${user.userName}'s Friends`));
       }
     }
   }, [

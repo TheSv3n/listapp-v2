@@ -19,6 +19,7 @@ import {
   LIST_SHARE_REMOVE_SUCCESS,
   LIST_SHARE_REMOVE_FAIL,
 } from "../constants/listContstants";
+import { updatePageHeading } from "./navBarActions";
 
 export const getUsersLists = () => async (dispatch, getState) => {
   try {
@@ -143,6 +144,7 @@ export const getListInfo = (listId) => async (dispatch, getState) => {
       type: LIST_INFO_SUCCESS,
       payload: data,
     });
+    dispatch(updatePageHeading(data.listName));
   } catch (error) {
     dispatch({
       type: LIST_INFO_FAIL,

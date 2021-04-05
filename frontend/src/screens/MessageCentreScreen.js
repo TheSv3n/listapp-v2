@@ -5,6 +5,7 @@ import ConversationListElement from "../components/ConversationListElement";
 import { useDispatch, useSelector } from "react-redux";
 import { getReceivedShareRequests } from "../actions/shareRequestActions";
 import { getReceivedFriendRequests } from "../actions/friendRequestActions";
+import { updatePageHeading } from "../actions/navBarActions";
 
 const MessageCentreScreen = ({ history }) => {
   const dispatch = useDispatch();
@@ -23,6 +24,7 @@ const MessageCentreScreen = ({ history }) => {
     } else {
       dispatch(getReceivedShareRequests());
       dispatch(getReceivedFriendRequests());
+      dispatch(updatePageHeading(`${userInfo.userName}'s Messages`));
     }
   }, [dispatch, history, userInfo]);
 

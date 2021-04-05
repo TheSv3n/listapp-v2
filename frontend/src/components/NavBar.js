@@ -20,6 +20,9 @@ const NavBar = () => {
   );
   const { requests: friendRequests } = receivedFriendRequests;
 
+  const pageHeading = useSelector((state) => state.pageHeading);
+  const { title } = pageHeading;
+
   useEffect(() => {
     if (userInfo) {
       if (!shareRequests) {
@@ -38,7 +41,7 @@ const NavBar = () => {
           <i className="far fa-arrow-alt-circle-left nav-item-icon" />
         </Link>
       </div>
-      <div className="mx-auto title-text">ListApp v2</div>
+      <div className="mx-auto title-text">{title}</div>
       <div className="ml-auto mr-4 title-text">
         <Link to="/friendlist" style={{ textDecoration: "none" }}>
           {friendRequests && friendRequests.length > 0 ? (

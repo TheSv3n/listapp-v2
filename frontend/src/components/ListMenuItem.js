@@ -19,8 +19,8 @@ const ListMenuItem = ({ list }) => {
       <li
         className={
           list.listFinished
-            ? "list-group-item list-group-item-done list-menu-item text-capitalize d-flex text-center my-1 my-md-2 my-lg-2"
-            : "list-group-item list-menu-item text-capitalize d-flex text-center my-1 my-md-2 my-lg-2"
+            ? "list-group-item list-group-item-done list-menu-item d-flex text-center my-1 my-md-2 my-lg-2"
+            : "list-group-item list-menu-item d-flex text-center my-1 my-md-2 my-lg-2"
         }
       >
         <Link

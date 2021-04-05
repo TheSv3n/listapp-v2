@@ -6,6 +6,7 @@ import Loader from "../components/Loader";
 import { getUsersLists, getSharedLists } from "../actions/listActions";
 import { getReceivedShareRequests } from "../actions/shareRequestActions";
 import { getReceivedFriendRequests } from "../actions/friendRequestActions";
+import { updatePageHeading } from "../actions/navBarActions";
 
 const ListMenuScreen = ({ history }) => {
   const dispatch = useDispatch();
@@ -31,6 +32,7 @@ const ListMenuScreen = ({ history }) => {
       dispatch(getSharedLists());
       dispatch(getReceivedShareRequests());
       dispatch(getReceivedFriendRequests());
+      dispatch(updatePageHeading(`${userInfo.userName}'s Lists`));
     }
   }, [dispatch, history, userInfo]);
   return (

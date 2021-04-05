@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { login, registerUser } from "../actions/userActions";
 import { useDispatch, useSelector } from "react-redux";
+import { updatePageHeading } from "../actions/navBarActions";
 
 const LoginScreen = ({ location, history }) => {
   const [userName, setUserName] = useState("");
@@ -32,7 +33,8 @@ const LoginScreen = ({ location, history }) => {
     } else if (registerError) {
       setErrorText(registerError);
     }
-  }, [history, userInfo, redirect, error, registerError]);
+    dispatch(updatePageHeading("ListApp v2 - Login"));
+  }, [history, userInfo, redirect, error, registerError, dispatch]);
 
   const dataValid = () => {
     if (

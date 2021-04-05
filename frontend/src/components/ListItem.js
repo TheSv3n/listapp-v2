@@ -32,8 +32,8 @@ const ListItem = ({ listItem }) => {
     <li
       className={
         listItem.completed
-          ? "list-group-item list-group-item-done text-capitalize d-flex text-center my-1 my-md-2 my-lg-2"
-          : "list-group-item text-capitalize d-flex text-center my-1 my-md-2 my-lg-2"
+          ? "list-group-item list-group-item-done d-flex text-center my-1 my-md-2 my-lg-2"
+          : "list-group-item d-flex text-center my-1 my-md-2 my-lg-2"
       }
     >
       <div className="container-fluid text-center ">
