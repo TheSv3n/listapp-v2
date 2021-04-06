@@ -54,7 +54,13 @@ const ListMenuScreen = ({ history }) => {
                           list.listFinished === false &&
                           list.listDeleted === false
                         ) {
-                          return <ListMenuItem key={list._id} list={list} />;
+                          return (
+                            <ListMenuItem
+                              key={list._id}
+                              list={list}
+                              history={history}
+                            />
+                          );
                         } else {
                           return <div key={list._id} />;
                         }
@@ -74,7 +80,13 @@ const ListMenuScreen = ({ history }) => {
                           list.listFinished === false &&
                           list.listDeleted === false
                         ) {
-                          return <ListMenuItem key={list._id} list={list} />;
+                          return (
+                            <ListMenuItem
+                              key={list._id}
+                              list={list}
+                              history={history}
+                            />
+                          );
                         } else {
                           return <div key={list._id} />;
                         }
