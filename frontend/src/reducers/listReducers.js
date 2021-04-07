@@ -18,6 +18,12 @@ import {
   LIST_SHARE_ADD_REQUEST,
   LIST_SHARE_ADD_SUCCESS,
   LIST_SHARE_ADD_FAIL,
+  COMPLETE_LIST_REQUEST,
+  COMPLETE_LIST_SUCCESS,
+  COMPLETE_LIST_FAIL,
+  DELETE_LIST_REQUEST,
+  DELETE_LIST_SUCCESS,
+  DELETE_LIST_FAIL,
 } from "../constants/listContstants";
 
 export const usersListsReducer = (state = { lists: [] }, action) => {
@@ -132,6 +138,46 @@ export const listAddShareReducer = (state = {}, action) => {
         loading: false,
       };
     case LIST_SHARE_ADD_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
+export const listCompleteReducer = (state = {}, action) => {
+  switch (action.type) {
+    case COMPLETE_LIST_REQUEST:
+      return {
+        loading: true,
+      };
+    case COMPLETE_LIST_SUCCESS:
+      return {
+        loading: false,
+      };
+    case COMPLETE_LIST_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
+export const listDeleteReducer = (state = {}, action) => {
+  switch (action.type) {
+    case DELETE_LIST_REQUEST:
+      return {
+        loading: true,
+      };
+    case DELETE_LIST_SUCCESS:
+      return {
+        loading: false,
+      };
+    case DELETE_LIST_FAIL:
       return {
         loading: false,
         error: action.payload,

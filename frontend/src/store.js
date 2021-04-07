@@ -13,6 +13,8 @@ import {
   sharedListsReducer,
   listCreateReducer,
   listInfoReducer,
+  listCompleteReducer,
+  listDeleteReducer,
 } from "./reducers/listReducers";
 import {
   listItemsReducer,
@@ -39,6 +41,8 @@ const reducer = combineReducers({
   sharedLists: sharedListsReducer,
   listInfo: listInfoReducer,
   listCreate: listCreateReducer,
+  listComplete: listCompleteReducer,
+  listDelete: listDeleteReducer,
   listItems: listItemsReducer,
   listItemCreate: listItemCreateReducer,
   friendDetails: friendDetailsReducer,

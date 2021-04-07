@@ -18,6 +18,12 @@ import {
   LIST_SHARE_REMOVE_REQUEST,
   LIST_SHARE_REMOVE_SUCCESS,
   LIST_SHARE_REMOVE_FAIL,
+  COMPLETE_LIST_REQUEST,
+  COMPLETE_LIST_SUCCESS,
+  COMPLETE_LIST_FAIL,
+  DELETE_LIST_REQUEST,
+  DELETE_LIST_SUCCESS,
+  DELETE_LIST_FAIL,
 } from "../constants/listContstants";
 import { updatePageHeading } from "./navBarActions";
 
@@ -223,9 +229,87 @@ export const listShareRemove = (listId, friendId) => async (
       payload: data,
     });
     dispatch(getListInfo(listId));
+    dispatch(getUsersLists());
+    dispatch(getSharedLists());
   } catch (error) {
     dispatch({
       type: LIST_SHARE_REMOVE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const completeList = (listId) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: COMPLETE_LIST_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.put(
+      `/api/lists/${listId}/finished`,
+      {},
+      config
+    );
+
+    dispatch({
+      type: COMPLETE_LIST_SUCCESS,
+      payload: data,
+    });
+    dispatch(getUsersLists());
+  } catch (error) {
+    dispatch({
+      type: COMPLETE_LIST_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const deleteList = (listId) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: DELETE_LIST_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.put(
+      `/api/lists/${listId}/deleted`,
+      {},
+      config
+    );
+
+    dispatch({
+      type: DELETE_LIST_SUCCESS,
+      payload: data,
+    });
+    dispatch(getUsersLists());
+  } catch (error) {
+    dispatch({
+      type: DELETE_LIST_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

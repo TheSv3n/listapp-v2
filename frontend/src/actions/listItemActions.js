@@ -8,6 +8,9 @@ import {
   COMPLETE_LIST_ITEM_REQUEST,
   COMPLETE_LIST_ITEM_SUCCESS,
   COMPLETE_LIST_ITEM_FAIL,
+  DELETE_LIST_ITEM_REQUEST,
+  DELETE_LIST_ITEM_SUCCESS,
+  DELETE_LIST_ITEM_FAIL,
 } from "../constants/listItemConstants";
 import axios from "axios";
 
@@ -126,7 +129,7 @@ export const deleteListItem = (itemId, listId) => async (
 ) => {
   try {
     dispatch({
-      type: COMPLETE_LIST_ITEM_REQUEST,
+      type: DELETE_LIST_ITEM_REQUEST,
     });
 
     const {
@@ -146,13 +149,13 @@ export const deleteListItem = (itemId, listId) => async (
     );
 
     dispatch({
-      type: COMPLETE_LIST_ITEM_SUCCESS,
+      type: DELETE_LIST_ITEM_SUCCESS,
       payload: data,
     });
     dispatch(getListItems(listId));
   } catch (error) {
     dispatch({
-      type: COMPLETE_LIST_ITEM_FAIL,
+      type: DELETE_LIST_ITEM_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

@@ -43,13 +43,30 @@ const updateListFinished = asyncHandler(async (req, res) => {
   const list = await List.findById(req.params.id);
 
   if (list) {
-    list.listFinished = req.body.listFinished;
+    list.listFinished = !list.listFinished;
 
     if (list.listFinished) {
       list.dateCompleted = Date.now();
     } else {
       list.dateCompleted = "";
     }
+
+    const updatedList = await list.save();
+    res.json(updatedList);
+  } else {
+    res.status(404);
+    throw new Error("List not Found");
+  }
+});
+
+//@desc Update items deleted status
+//@route PUT /api/lists/:id/deleted
+//@access Private
+const updateListDeleted = asyncHandler(async (req, res) => {
+  const list = await List.findById(req.params.id);
+
+  if (list) {
+    list.listDeleted = !list.listDeleted;
 
     const updatedList = await list.save();
     res.json(updatedList);
@@ -113,6 +130,7 @@ export {
   createList,
   getUserLists,
   updateListFinished,
+  updateListDeleted,
   addListShare,
   removeListShare,
   getSharedLists,

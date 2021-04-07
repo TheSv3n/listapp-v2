@@ -76,6 +76,11 @@
   text-align: right;
 }
 
+body {
+  font-family: "Exo 2", sans-serif !important;
+  background: var(--mainWhite) !important;
+}
+
 .icon-has-message {
   color: transparent !important;
   animation-name: icon-pulse;
