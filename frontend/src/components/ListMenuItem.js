@@ -36,7 +36,7 @@ const ListMenuItem = ({ list, history }) => {
           className={`list-group-item ${
             list.listFinished ? "list-group-item-done" : ""
           }  list-menu-item d-flex text-center my-1 my-md-2 my-lg-2 ${
-            showOptions ? "col-10" : "col-11"
+            showOptions ? "col-8" : "col-11"
           }`}
           onClick={() => {
             clickHandler();

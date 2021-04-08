@@ -1,11 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getReceivedShareRequests } from "../actions/shareRequestActions";
 import { getReceivedFriendRequests } from "../actions/friendRequestActions";
+import NavIcons from "./NavIcons";
 
 const NavBar = () => {
   const dispatch = useDispatch();
+
+  const [showIcons, setShowIcons] = useState(false);
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -35,33 +38,50 @@ const NavBar = () => {
   }, [dispatch, userInfo, shareRequests, friendRequests]);
 
   return (
-    <div className="navbar">
-      <div className="mr-auto ml-4 title-text">
-        <Link to="/" style={{ textDecoration: "none" }}>
-          <i className="far fa-arrow-alt-circle-left nav-item-icon" />
-        </Link>
+    <>
+      <div className="navbar">
+        <div className="mr-auto ml-4 title-text">
+          <Link to="/" style={{ textDecoration: "none" }}>
+            <i className="far fa-arrow-alt-circle-left nav-item-icon" />
+          </Link>
+        </div>
+        <div className="mx-auto title-text">{title}</div>
+        <div className="ml-auto mr-4 title-text">
+          <div className="d-none d-lg-block d-md-block">
+            <NavIcons />
+          </div>
+          <div className="d-block d-lg-none d-md-none">
+            {(friendRequests && friendRequests.length > 0) ||
+            (shareRequests && shareRequests.length > 0) ? (
+              <i
+                className="fas fa-bars icon-has-message"
+                onClick={() => {
+                  setShowIcons(!showIcons);
+                }}
+              ></i>
+            ) : (
+              <i
+                className="fas fa-bars"
+                onClick={() => {
+                  setShowIcons(!showIcons);
+                }}
+              ></i>
+            )}
+          </div>
+        </div>
       </div>
-      <div className="mx-auto title-text">{title}</div>
-      <div className="ml-auto mr-4 title-text">
-        <Link to="/friendlist" style={{ textDecoration: "none" }}>
-          {friendRequests && friendRequests.length > 0 ? (
-            <i className="fas fa-user-friends nav-item-icon mr-2 icon-has-message" />
-          ) : (
-            <i className="fas fa-user-friends nav-item-icon mr-2" />
-          )}
-        </Link>
-        <Link to="/messagecentre" style={{ textDecoration: "none" }}>
-          {shareRequests && shareRequests.length > 0 ? (
-            <i className="fas fa-envelope nav-item-icon mr-2 icon-has-message" />
-          ) : (
-            <i className="fas fa-envelope nav-item-icon mr-2" />
-          )}
-        </Link>
-        <Link to="/profile" style={{ textDecoration: "none" }}>
-          <i className="fas fa-cog nav-item-icon" />
-        </Link>
-      </div>
-    </div>
+      {showIcons ? (
+        <div className="navbar">
+          <ul className="navbar-nav align-items-center mx-auto d-md-none d-lg-none">
+            <li className="nav-item-icon mx-auto nav-link">
+              <NavIcons />
+            </li>
+          </ul>
+        </div>
+      ) : (
+        ""
+      )}
+    </>
   );
 };
 
