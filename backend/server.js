@@ -5,12 +5,37 @@ import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 import morgan from "morgan";
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
+import http from "http";
+import https from "https";
+
+//const http = require("http");
+//const https = require("https");
 
 import userRoutes from "./routes/userRoutes.js";
 import listRoutes from "./routes/listRoutes.js";
 import listItemRoutes from "./routes/listItemRoutes.js";
 import shareRequestRoutes from "./routes/shareRequestRoutes.js";
 import friendRequestRoutes from "./routes/friendRequestRoutes.js";
+
+//Certificate
+const privateKey = fs.readFileSync(
+  "/etc/letsencrypt/live/thesv3n.ddns.net/privkey.pem",
+  "utf8"
+);
+const certificate = fs.readFileSync(
+  "/etc/letsencrypt/live/thesv3n.ddns.net/cert.pem",
+  "utf8"
+);
+const ca = fs.readFileSync(
+  "/etc/letsencrypt/live/thesv3n.ddns.net/chain.pem",
+  "utf8"
+);
+
+const credentials = {
+  key: privateKey,
+  cert: certificate,
+  ca: ca,
+};
 
 dotenv.config();
 
@@ -48,6 +73,8 @@ if (process.env.NODE_ENV === "production") {
 
 app.use(notFound);
 app.use(errorHandler);
+
+const httpsServer = https.createServer(credentials, app);
 
 app.listen(
   PORT,
