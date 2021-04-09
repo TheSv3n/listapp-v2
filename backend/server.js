@@ -5,11 +5,9 @@ import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 import morgan from "morgan";
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
+import fs from "fs";
 import http from "http";
 import https from "https";
-
-//const http = require("http");
-//const https = require("https");
 
 import userRoutes from "./routes/userRoutes.js";
 import listRoutes from "./routes/listRoutes.js";
@@ -76,7 +74,7 @@ app.use(errorHandler);
 
 const httpsServer = https.createServer(credentials, app);
 
-app.listen(
+httpsServer.listen(
   PORT,
   console.log(
     `Server running in ${process.env.NODE_ENV} on port ${PORT}`.yellow.bold
