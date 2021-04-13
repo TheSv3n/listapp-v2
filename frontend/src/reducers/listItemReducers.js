@@ -2,6 +2,7 @@ import {
   LIST_ITEMS_REQUEST,
   LIST_ITEMS_SUCCESS,
   LIST_ITEMS_FAIL,
+  LIST_ITEMS_UPDATE,
   LIST_ITEMS_RESET,
   CREATE_LIST_ITEM_REQUEST,
   CREATE_LIST_ITEM_SUCCESS,
@@ -30,6 +31,10 @@ export const listItemsReducer = (state = { items: [] }, action) => {
       return {
         loading: false,
         error: action.payload,
+      };
+    case LIST_ITEMS_UPDATE:
+      return {
+        items: action.payload,
       };
     case LIST_ITEMS_RESET:
       return {};

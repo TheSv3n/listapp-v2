@@ -112,6 +112,7 @@ export const completeListItem = (itemId, listId) => async (
       payload: data,
     });
     dispatch(getListItems(listId));
+    //dispatch(updateListItems(data));
   } catch (error) {
     dispatch({
       type: COMPLETE_LIST_ITEM_FAIL,
@@ -163,3 +164,5 @@ export const deleteListItem = (itemId, listId) => async (
     });
   }
 };
+
+export const updateListItems = (listItem) => async (dispatch, getState) => {};
