@@ -11,6 +11,7 @@ import {
   DELETE_LIST_ITEM_REQUEST,
   DELETE_LIST_ITEM_SUCCESS,
   DELETE_LIST_ITEM_FAIL,
+  LIST_ITEMS_UPDATE,
 } from "../constants/listItemConstants";
 import axios from "axios";
 
@@ -70,7 +71,7 @@ export const createListItem = (listItem) => async (dispatch, getState) => {
       type: CREATE_LIST_ITEM_SUCCESS,
       payload: data,
     });
-    dispatch(getListItems(listItem.list));
+    dispatch(addToListItems(data));
   } catch (error) {
     dispatch({
       type: CREATE_LIST_ITEM_FAIL,
@@ -82,10 +83,7 @@ export const createListItem = (listItem) => async (dispatch, getState) => {
   }
 };
 
-export const completeListItem = (itemId, listId) => async (
-  dispatch,
-  getState
-) => {
+export const completeListItem = (itemId) => async (dispatch, getState) => {
   try {
     dispatch({
       type: COMPLETE_LIST_ITEM_REQUEST,
@@ -111,8 +109,7 @@ export const completeListItem = (itemId, listId) => async (
       type: COMPLETE_LIST_ITEM_SUCCESS,
       payload: data,
     });
-    dispatch(getListItems(listId));
-    //dispatch(updateListItems(data));
+    dispatch(updateListItems(data));
   } catch (error) {
     dispatch({
       type: COMPLETE_LIST_ITEM_FAIL,
@@ -124,10 +121,7 @@ export const completeListItem = (itemId, listId) => async (
   }
 };
 
-export const deleteListItem = (itemId, listId) => async (
-  dispatch,
-  getState
-) => {
+export const deleteListItem = (itemId) => async (dispatch, getState) => {
   try {
     dispatch({
       type: DELETE_LIST_ITEM_REQUEST,
@@ -153,7 +147,7 @@ export const deleteListItem = (itemId, listId) => async (
       type: DELETE_LIST_ITEM_SUCCESS,
       payload: data,
     });
-    dispatch(getListItems(listId));
+    dispatch(updateListItems(data));
   } catch (error) {
     dispatch({
       type: DELETE_LIST_ITEM_FAIL,
@@ -165,4 +159,31 @@ export const deleteListItem = (itemId, listId) => async (
   }
 };
 
-export const updateListItems = (listItem) => async (dispatch, getState) => {};
+export const updateListItems = (listItem) => async (dispatch, getState) => {
+  const {
+    listItems: { items },
+  } = getState();
+  let tempItems = [...items];
+
+  let index = tempItems.findIndex((item) => {
+    return item._id === listItem._id;
+  });
+  tempItems[index] = listItem;
+
+  dispatch({
+    type: LIST_ITEMS_UPDATE,
+    payload: tempItems,
+  });
+};
+
+export const addToListItems = (listItem) => async (dispatch, getState) => {
+  const {
+    listItems: { items },
+  } = getState();
+  let tempItems = [...items, listItem];
+
+  dispatch({
+    type: LIST_ITEMS_UPDATE,
+    payload: tempItems,
+  });
+};

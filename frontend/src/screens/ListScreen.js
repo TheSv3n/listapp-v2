@@ -41,7 +41,10 @@ const ListScreen = ({ match, history }) => {
             <ul className="list-group">
               {list && <NewItemEditor listId={listId} />}
               <>
-                {items &&
+                {loading ? (
+                  <Loader />
+                ) : (
+                  items &&
                   list &&
                   items.map((listItem) => {
                     if (
@@ -54,13 +57,17 @@ const ListScreen = ({ match, history }) => {
                     } else {
                       return <div key={listItem._id} />;
                     }
-                  })}
+                  })
+                )}
               </>
 
               <div className="text-center">Completed Items</div>
 
               <>
-                {items &&
+                {loading ? (
+                  <Loader />
+                ) : (
+                  items &&
                   list &&
                   items.map((listItem) => {
                     if (
@@ -73,7 +80,8 @@ const ListScreen = ({ match, history }) => {
                     } else {
                       return <div key={listItem._id} />;
                     }
-                  })}
+                  })
+                )}
               </>
             </ul>
           </div>
