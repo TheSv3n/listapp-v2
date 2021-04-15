@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { friendRequestRespond } from "../actions/friendRequestActions";
 import { userFriendAdd } from "../actions/userActions";
 

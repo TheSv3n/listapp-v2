@@ -4,7 +4,9 @@ import { getUserDetails, getFriendList } from "../actions/userActions";
 import { getSentShareRequests } from "../actions/shareRequestActions";
 import { useDispatch, useSelector } from "react-redux";
 import ListFriendElement from "../components/ListFriendElement";
+import Loader from "../components/Loader";
 import axios from "axios";
+import "../css/NewItemEditor.css";
 
 const NewItemEditor = ({ history, listId }) => {
   const dispatch = useDispatch();
@@ -14,6 +16,7 @@ const NewItemEditor = ({ history, listId }) => {
   const [optionsShow, setOptionsShow] = useState(false);
   const [image, setImage] = useState("");
   const [uploading, setUploading] = useState(false);
+  const [imageName, setImageName] = useState("No Image");
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -47,6 +50,8 @@ const NewItemEditor = ({ history, listId }) => {
     setCost(0);
     setDescription("");
     document.getElementById("image-form").value = "";
+    setImageName("No Image");
+    setImage("");
   };
 
   useEffect(() => {
@@ -87,10 +92,17 @@ const NewItemEditor = ({ history, listId }) => {
       const { data } = await axios.post("/api/upload", formData, config);
       setImage(data);
       setUploading(false);
+      setImageName(e.target.value);
     } catch (error) {
       console.error(error);
       setUploading(false);
     }
+  };
+
+  const clearImageHandler = () => {
+    document.getElementById("image-form").value = "";
+    setImageName("No Image");
+    setImage("");
   };
 
   return (
@@ -144,19 +156,34 @@ const NewItemEditor = ({ history, listId }) => {
           </div>
         </div>
 
-        <div className="row d-block">
-          <div className="input-group col-12 my-1">
-            <div className="input-group-prepend">
-              <div className="input-group-text bg-primary text-white">
-                <i className="fas fa-info" />
-              </div>
-            </div>
+        <div className="row d-block my-2">
+          <div className="input-group col-12 ">
+            <label for="image-form" className="mr-1 my-auto">
+              <i className="fas fa-image" /> Add Image
+            </label>
             <input
               id="image-form"
               type="file"
               className="form-file"
               onChange={uploadFileHandler}
             />
+            {uploading ? (
+              <Loader />
+            ) : (
+              <div className="d-flex col-6 my-auto">
+                {imageName}
+                {image === "" ? (
+                  ""
+                ) : (
+                  <button
+                    className="btn btn-block btn-danger col-3 ml-2"
+                    onClick={clearImageHandler}
+                  >
+                    Clear
+                  </button>
+                )}
+              </div>
+            )}
           </div>
         </div>
 

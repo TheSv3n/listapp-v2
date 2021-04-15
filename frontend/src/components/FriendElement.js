@@ -7,8 +7,6 @@ import { createFriendRequest } from "../actions/friendRequestActions";
 const FriendElement = ({ friend, isFriend, isUser, friendRequested }) => {
   let resultFriend = false;
   const dispatch = useDispatch();
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
 
   const userDetails = useSelector((state) => state.userDetails);
   const { user } = userDetails;
