@@ -5,7 +5,7 @@ import ListItem from "../models/listItemModel.js";
 //@route POST /api/listitems
 //@access Private
 const createListItem = asyncHandler(async (req, res) => {
-  const { name, list, cost, description, dateAdded } = req.body;
+  const { name, list, cost, description, image, dateAdded } = req.body;
 
   const listItem = new ListItem({
     name,
@@ -13,6 +13,7 @@ const createListItem = asyncHandler(async (req, res) => {
     addedBy: req.user._id,
     cost,
     description,
+    image,
     dateAdded,
   });
 

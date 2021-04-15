@@ -65,6 +65,8 @@ export const createListItem = (listItem) => async (dispatch, getState) => {
       },
     };
 
+    console.log(listItem);
+
     const { data } = await axios.post(`/api/listitems`, listItem, config);
 
     dispatch({

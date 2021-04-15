@@ -14,6 +14,7 @@ import listRoutes from "./routes/listRoutes.js";
 import listItemRoutes from "./routes/listItemRoutes.js";
 import shareRequestRoutes from "./routes/shareRequestRoutes.js";
 import friendRequestRoutes from "./routes/friendRequestRoutes.js";
+import uploadRoutes from "./routes/uploadRoutes.js";
 
 let credentials = {};
 
@@ -66,6 +67,9 @@ app.use("/api/lists", listRoutes);
 app.use("/api/listitems", listItemRoutes);
 app.use("/api/sharerequests", shareRequestRoutes);
 app.use("/api/friendrequests", friendRequestRoutes);
+app.use("/api/upload", uploadRoutes);
+
+app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "/frontend/build")));

@@ -4,6 +4,7 @@ import { getUserDetails, getFriendList } from "../actions/userActions";
 import { getSentShareRequests } from "../actions/shareRequestActions";
 import { useDispatch, useSelector } from "react-redux";
 import ListFriendElement from "../components/ListFriendElement";
+import axios from "axios";
 
 const NewItemEditor = ({ history, listId }) => {
   const dispatch = useDispatch();
@@ -11,6 +12,8 @@ const NewItemEditor = ({ history, listId }) => {
   const [cost, setCost] = useState(0.0);
   const [description, setDescription] = useState("");
   const [optionsShow, setOptionsShow] = useState(false);
+  const [image, setImage] = useState("");
+  const [uploading, setUploading] = useState(false);
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -35,12 +38,15 @@ const NewItemEditor = ({ history, listId }) => {
         cost: cost,
         description: description,
         list: listId,
+        image: image,
         dateAdded: Date.now(),
       })
     );
+
     setItemName("");
     setCost(0);
     setDescription("");
+    document.getElementById("image-form").value = "";
   };
 
   useEffect(() => {
@@ -63,6 +69,28 @@ const NewItemEditor = ({ history, listId }) => {
   const handleOptionsToggle = (e) => {
     e.preventDefault();
     setOptionsShow(!optionsShow);
+  };
+
+  const uploadFileHandler = async (e) => {
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append("image", file);
+    setUploading(true);
+
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "mutipart/form-data",
+        },
+      };
+
+      const { data } = await axios.post("/api/upload", formData, config);
+      setImage(data);
+      setUploading(false);
+    } catch (error) {
+      console.error(error);
+      setUploading(false);
+    }
   };
 
   return (
@@ -115,6 +143,23 @@ const NewItemEditor = ({ history, listId }) => {
             />
           </div>
         </div>
+
+        <div className="row d-block">
+          <div className="input-group col-12 my-1">
+            <div className="input-group-prepend">
+              <div className="input-group-text bg-primary text-white">
+                <i className="fas fa-info" />
+              </div>
+            </div>
+            <input
+              id="image-form"
+              type="file"
+              className="form-file"
+              onChange={uploadFileHandler}
+            />
+          </div>
+        </div>
+
         <div className="row mx-auto">
           <button
             type="submit"
