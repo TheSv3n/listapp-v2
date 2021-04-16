@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { completeListItem, deleteListItem } from "../actions/listItemActions";
+import { Image } from "react-bootstrap";
 
 import { useDispatch, useSelector } from "react-redux";
 
@@ -13,9 +14,14 @@ const ListItem = ({ listItem }) => {
   const listId = list._id;
 
   const [infoShow, setInfoShow] = useState(false);
+  const [pictureShow, setPictureShow] = useState(false);
 
   const handleInfoToggle = () => {
     setInfoShow(!infoShow);
+  };
+
+  const handlePictureToggle = () => {
+    setPictureShow(!pictureShow);
   };
 
   const handleChecked = () => {
@@ -38,14 +44,24 @@ const ListItem = ({ listItem }) => {
     >
       <div className="container-fluid text-center ">
         <div className="row">
-          <span
-            className="icon-span text-warning col-1 mx-auto col-lg-1"
-            onClick={() => {
-              handleInfoToggle();
-            }}
-          >
-            <i className="fas icon fa-info-circle" />
-          </span>
+          <div className="icon-span text-warning col-2 mx-auto col-lg-1 d-inline">
+            <i
+              className="fas icon fa-info-circle d-inline"
+              onClick={() => {
+                handleInfoToggle();
+              }}
+            />
+            {listItem.image && listItem.image !== "" ? (
+              <i
+                className="fas icon fa-image text-success ml-1 d-inline"
+                onClick={() => {
+                  handlePictureToggle();
+                }}
+              />
+            ) : (
+              ""
+            )}
+          </div>
           <div className="col-3 mx-auto col-lg-5">{listItem.name}</div>
           <div className="col-1 mx-auto col-lg-1 ">{listItem.cost}</div>
           <div>
@@ -85,6 +101,16 @@ const ListItem = ({ listItem }) => {
             </span>
           </div>
         </div>
+
+        {pictureShow ? (
+          <div className="row">
+            <div className="mx-auto col-6">
+              <Image src={listItem.image} alt={listItem.name} fluid></Image>
+            </div>
+          </div>
+        ) : (
+          ""
+        )}
 
         {infoShow ? (
           <div className="row">

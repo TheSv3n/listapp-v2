@@ -33,7 +33,7 @@ const LoginScreen = ({ location, history }) => {
     } else if (registerError) {
       setErrorText(registerError);
     }
-    dispatch(updatePageHeading("ListApp v2 - Login"));
+    dispatch(updatePageHeading("ListApp v2"));
   }, [history, userInfo, redirect, error, registerError, dispatch]);
 
   const dataValid = () => {
