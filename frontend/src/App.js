@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import NavBar from "./components/NavBar";
 import ListMenuScreen from "./screens/ListMenuScreen";
+import CompletedListsScreen from "./screens/CompletedListsScreen";
 import LoginScreen from "./screens/LoginScreen";
 import ListScreen from "./screens/ListScreen";
 import ProfileScreen from "./screens/ProfileScreen";
@@ -16,6 +17,7 @@ function App() {
       <Router>
         <NavBar />
         <Container>
+          <Route path="/completedlists" component={CompletedListsScreen} />
           <Route path="/list/:id" component={ListScreen} />
           <Route path="/friendlist" component={FriendsListScreen} />
           <Route path="/messagecentre" component={MessageCentreScreen} />
