@@ -34,7 +34,11 @@ const ListMenuItem = ({ list, history }) => {
       <div className="row">
         <li
           className={`list-group-item ${
-            list.listFinished ? "list-group-item-done" : ""
+            list.listFinished && !list.listDeleted
+              ? "list-group-item-done"
+              : list.listDeleted
+              ? "list-group-item-deleted"
+              : ""
           }  list-menu-item d-flex text-center my-1 my-md-2 my-lg-2 ${
             showOptions ? "col-7 col-md-8" : "col-10 col-md-11"
           }`}
@@ -58,25 +62,33 @@ const ListMenuItem = ({ list, history }) => {
                 <span
                   className="icon-span"
                   onClick={() => {
-                    handleListChecked();
+                    if (list.listDeleted) {
+                      handleDelete();
+                    } else {
+                      handleListChecked();
+                    }
                   }}
                 >
                   <i
                     className={
-                      list.listFinished
+                      list.listFinished || list.listDeleted
                         ? "text-danger fas fa-undo-alt icon"
                         : "text-success fas fa-check icon"
                     }
                   />
                 </span>
-                <span
-                  onClick={() => {
-                    handleDelete();
-                  }}
-                  className="icon-span text-danger col-1"
-                >
-                  <i className="fas fa-trash-alt icon" />
-                </span>
+                {list.listDeleted ? (
+                  ""
+                ) : (
+                  <span
+                    onClick={() => {
+                      handleDelete();
+                    }}
+                    className="icon-span text-danger col-1"
+                  >
+                    <i className="fas fa-trash-alt icon" />
+                  </span>
+                )}
               </div>
             </>
           ) : (

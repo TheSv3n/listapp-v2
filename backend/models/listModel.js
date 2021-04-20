@@ -26,6 +26,10 @@ const listSchema = mongoose.Schema(
       required: false,
       default: false,
     },
+    dateDeleted: {
+      type: Date,
+      required: false,
+    },
     dateAdded: {
       type: Date,
       required: true,

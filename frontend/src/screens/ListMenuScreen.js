@@ -7,6 +7,7 @@ import { getUsersLists, getSharedLists } from "../actions/listActions";
 import { getReceivedShareRequests } from "../actions/shareRequestActions";
 import { getReceivedFriendRequests } from "../actions/friendRequestActions";
 import { updatePageHeading } from "../actions/navBarActions";
+import { Link } from "react-router-dom";
 
 const ListMenuScreen = ({ history }) => {
   const dispatch = useDispatch();
@@ -66,6 +67,11 @@ const ListMenuScreen = ({ history }) => {
                         }
                       })}
                   </>{" "}
+                  <Link to="/completedlists" style={{ textDecoration: "none" }}>
+                    <button className="btn btn-block btn-primary col-5 mx-auto mt-1">
+                      View Completed Lists
+                    </button>
+                  </Link>
                 </>
               )}
               {loading ? (

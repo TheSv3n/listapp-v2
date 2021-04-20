@@ -68,6 +68,12 @@ const updateListDeleted = asyncHandler(async (req, res) => {
   if (list) {
     list.listDeleted = !list.listDeleted;
 
+    if (list.listDeleted) {
+      list.dateDeleted = Date.now();
+    } else {
+      list.dateDeleted = "";
+    }
+
     const updatedList = await list.save();
     res.json(updatedList);
   } else {

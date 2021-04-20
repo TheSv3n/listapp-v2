@@ -59,6 +59,31 @@ const CompletedListsScreen = ({ history }) => {
                   </>{" "}
                 </>
               )}
+              {loading ? (
+                <Loader />
+              ) : (
+                <>
+                  <div className="text-center">
+                    Deleted Lists - Will be permanently deleted after 30 days
+                  </div>
+                  <>
+                    {lists &&
+                      lists.map((list) => {
+                        if (list.listDeleted === true) {
+                          return (
+                            <ListMenuItem
+                              key={list._id}
+                              list={list}
+                              history={history}
+                            />
+                          );
+                        } else {
+                          return <div key={list._id} />;
+                        }
+                      })}
+                  </>{" "}
+                </>
+              )}
             </ul>
           </div>
         </div>

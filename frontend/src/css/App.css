@@ -27,6 +27,10 @@
   border: 0.2rem solid var(--mainGreen) !important;
 }
 
+.list-group-item-deleted {
+  border: 0.2rem solid var(--mainRed) !important;
+}
+
 .list-group-item:hover {
   border: 0.5rem solid rgba(0, 0, 0, 0.2);
   box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.2);
