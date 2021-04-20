@@ -11,7 +11,7 @@ import "../css/NewItemEditor.css";
 const NewItemEditor = ({ history, listId }) => {
   const dispatch = useDispatch();
   const [itemName, setItemName] = useState("");
-  const [cost, setCost] = useState(0.0);
+  const [cost, setCost] = useState();
   const [description, setDescription] = useState("");
   const [optionsShow, setOptionsShow] = useState(false);
   const [image, setImage] = useState("");
@@ -47,7 +47,7 @@ const NewItemEditor = ({ history, listId }) => {
     );
 
     setItemName("");
-    setCost(0);
+    setCost("");
     setDescription("");
     document.getElementById("image-form").value = "";
     setImageName("No Image");
