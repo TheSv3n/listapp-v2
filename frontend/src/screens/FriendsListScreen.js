@@ -21,14 +21,10 @@ const FriendsListScreen = ({ history }) => {
   const { user } = userDetails;
 
   const friendDetails = useSelector((state) => state.friendDetails);
-  const { loading, error, friendList } = friendDetails;
+  const { loading, friendList } = friendDetails;
 
   const searchResults = useSelector((state) => state.searchResults);
-  const {
-    loading: resultsLoading,
-    error: resultsError,
-    results,
-  } = searchResults;
+  const { loading: resultsLoading, results } = searchResults;
 
   const sentFriendRequests = useSelector((state) => state.sentFriendRequests);
   const { requests: sentRequests } = sentFriendRequests;

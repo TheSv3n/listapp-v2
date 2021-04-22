@@ -19,6 +19,7 @@ import {
 import {
   listItemsReducer,
   listItemCreateReducer,
+  listItemCompleteReducer,
 } from "./reducers/listItemReducers";
 import {
   sentShareRequestsReducer,
@@ -45,6 +46,7 @@ const reducer = combineReducers({
   listDelete: listDeleteReducer,
   listItems: listItemsReducer,
   listItemCreate: listItemCreateReducer,
+  listItemComplete: listItemCompleteReducer,
   friendDetails: friendDetailsReducer,
   shareRequestCreate: shareRequestCreateReducer,
   receivedShareRequests: receivedShareRequestsReducer,

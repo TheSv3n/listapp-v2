@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { shareRequestRespond } from "../actions/shareRequestActions";
 import { listShareAdd } from "../actions/listActions";
 

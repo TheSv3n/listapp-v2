@@ -11,6 +11,9 @@ const ListItem = ({ listItem }) => {
   const listInfo = useSelector((state) => state.listInfo);
   const { list } = listInfo;
 
+  const listItemComplete = useSelector((state) => state.listItemComplete);
+  const { error: completeError } = listItemComplete;
+
   const listId = list._id;
 
   const [infoShow, setInfoShow] = useState(false);
@@ -58,6 +61,13 @@ const ListItem = ({ listItem }) => {
                   handlePictureToggle();
                 }}
               />
+            ) : (
+              ""
+            )}
+            {completeError ? (
+              <>
+                <i className="fas fa-exclamation-triangle text-danger ml-1 d-inline" />{" "}
+              </>
             ) : (
               ""
             )}

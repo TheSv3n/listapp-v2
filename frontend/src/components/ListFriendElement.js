@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { createShareRequest } from "../actions/shareRequestActions";
-import { listShareRemove, getListInfo } from "../actions/listActions";
+import { listShareRemove } from "../actions/listActions";
 import { useDispatch, useSelector } from "react-redux";
 
 const ListFriendElement = ({ friend, isOwner, isShared, isRequested }) => {

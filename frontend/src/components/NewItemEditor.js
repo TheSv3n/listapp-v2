@@ -22,7 +22,7 @@ const NewItemEditor = ({ history, listId }) => {
   const { userInfo } = userLogin;
 
   const userDetails = useSelector((state) => state.userDetails);
-  const { loading, error, user } = userDetails;
+  const { user } = userDetails;
 
   const friendDetails = useSelector((state) => state.friendDetails);
   const { friendList } = friendDetails;
@@ -171,7 +171,7 @@ const NewItemEditor = ({ history, listId }) => {
               <Loader />
             ) : (
               <div className="d-flex col-6 my-auto">
-                {imageName}
+                <div className="d-none d-md-flex d-lg-flex">{imageName}</div>
                 {image === "" ? (
                   ""
                 ) : (

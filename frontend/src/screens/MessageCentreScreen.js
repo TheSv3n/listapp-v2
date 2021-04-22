@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import ShareRequest from "../components/ShareRequest";
 import Loader from "../components/Loader";
-import ConversationListElement from "../components/ConversationListElement";
+//import ConversationListElement from "../components/ConversationListElement";
 import { useDispatch, useSelector } from "react-redux";
 import { getReceivedShareRequests } from "../actions/shareRequestActions";
 import { getReceivedFriendRequests } from "../actions/friendRequestActions";

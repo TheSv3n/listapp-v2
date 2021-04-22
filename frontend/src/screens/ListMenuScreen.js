@@ -16,14 +16,10 @@ const ListMenuScreen = ({ history }) => {
   const { userInfo } = userLogin;
 
   const usersLists = useSelector((state) => state.usersLists);
-  const { loading, error, lists } = usersLists;
+  const { loading, lists } = usersLists;
 
   const sharedLists = useSelector((state) => state.sharedLists);
-  const {
-    loading: loadingShared,
-    error: errorShared,
-    sharedLists: usersSharedLists,
-  } = sharedLists;
+  const { loading: loadingShared, sharedLists: usersSharedLists } = sharedLists;
 
   useEffect(() => {
     if (!userInfo) {
@@ -74,7 +70,7 @@ const ListMenuScreen = ({ history }) => {
                   </Link>
                 </>
               )}
-              {loading ? (
+              {loadingShared ? (
                 <Loader />
               ) : (
                 <>

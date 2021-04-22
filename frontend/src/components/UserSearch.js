@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { searchUsers } from "../actions/userActions";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const UserSearch = () => {
   const dispatch = useDispatch();

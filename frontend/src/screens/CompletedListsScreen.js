@@ -14,7 +14,7 @@ const CompletedListsScreen = ({ history }) => {
   const { userInfo } = userLogin;
 
   const usersLists = useSelector((state) => state.usersLists);
-  const { loading, error, lists } = usersLists;
+  const { loading, lists } = usersLists;
 
   useEffect(() => {
     if (!userInfo) {
