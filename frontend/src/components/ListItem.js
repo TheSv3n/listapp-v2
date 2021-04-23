@@ -66,7 +66,12 @@ const ListItem = ({ listItem }) => {
             )}
             {completeError ? (
               <>
-                <i className="fas fa-exclamation-triangle text-danger ml-1 d-inline" />{" "}
+                <i
+                  className="fas fa-exclamation-triangle text-danger ml-1 d-inline"
+                  onClick={() => {
+                    handleInfoToggle();
+                  }}
+                />{" "}
               </>
             ) : (
               ""
