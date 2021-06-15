@@ -54,7 +54,7 @@ const NavBar = () => {
             {(friendRequests && friendRequests.length > 0) ||
             (shareRequests && shareRequests.length > 0) ? (
               <i
-                className="fas fa-bars icon-has-message"
+                className="fas fa-bars icon-has-message nav-item-icon"
                 onClick={() => {
                   setShowIcons(!showIcons);
                 }}

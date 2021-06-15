@@ -58,7 +58,7 @@
 
 .nav-item-icon {
   color: var(--mainWhite) !important;
-  font-size: 2rem !important;
+  font-size: 2rem;
   cursor: pointer;
 }
 
@@ -84,6 +84,36 @@
 body {
   font-family: "Exo 2", sans-serif !important;
   background: var(--mainWhite) !important;
+}
+
+@media screen and (max-width: 768px) {
+  body {
+    font-size: 0.8rem !important;
+  }
+  .icon-span {
+    font-size: 1rem;
+  }
+  .text-white {
+    font-size: 0.8rem !important;
+  }
+  .title-text {
+    font-size: 1.8rem;
+  }
+  .nav-item-icon {
+    font-size: 1.8rem;
+  }
+  input {
+    font-size: 0.8rem !important;
+  }
+  button {
+    font-size: 0.8rem !important;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  body {
+    font-size: 1rem !important;
+  }
 }
 
 .icon-has-message {
