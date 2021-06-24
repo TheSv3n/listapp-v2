@@ -77,8 +77,8 @@ const ListItem = ({ listItem }) => {
               ""
             )}
           </div>
-          <div className="col-7 mx-auto col-lg-7">{listItem.name}</div>
-          <div className="col-1 mx-auto col-lg-1 ">{listItem.cost}</div>
+          <div className="col-6 mx-auto">{listItem.name}</div>
+          <div className="col-1 mx-auto">{listItem.cost}</div>
           <div>
             <span
               className="icon-span col-1 mx-auto col-lg-1"
