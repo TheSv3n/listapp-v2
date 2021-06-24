@@ -7,6 +7,7 @@ import NewItemEditor from "../components/NewItemEditor";
 import ListItem from "../components/ListItem";
 import { getReceivedShareRequests } from "../actions/shareRequestActions";
 import { getReceivedFriendRequests } from "../actions/friendRequestActions";
+import Meta from "../components/Meta";
 
 const ListScreen = ({ match, history }) => {
   const listId = match.params.id;
@@ -35,6 +36,7 @@ const ListScreen = ({ match, history }) => {
 
   return (
     <>
+      {list && <Meta title={`${list.listName} - ListApp`} />}
       <div className="container">
         <div className="row">
           <div className="col-12 mx-auto col-md-12 col-lg-12">

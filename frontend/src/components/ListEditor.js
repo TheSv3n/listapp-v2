@@ -11,6 +11,7 @@ const ListEditor = () => {
     dispatch(
       createList({ listName: listName, listType: 0, dateAdded: Date.now() })
     );
+    setListName("");
   };
 
   return (

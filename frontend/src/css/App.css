@@ -10,6 +10,12 @@
   --primaryBlue: #0275d8;
 }
 
+body::before {
+  display: block;
+  content: "";
+  height: 70px;
+}
+
 .navbar {
   text-align: center;
   color: var(--mainWhite);

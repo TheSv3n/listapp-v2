@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getReceivedShareRequests } from "../actions/shareRequestActions";
 import { getReceivedFriendRequests } from "../actions/friendRequestActions";
 import { updatePageHeading } from "../actions/navBarActions";
+import Meta from "../components/Meta";
 
 const MessageCentreScreen = ({ history }) => {
   const dispatch = useDispatch();
@@ -29,32 +30,34 @@ const MessageCentreScreen = ({ history }) => {
   }, [dispatch, history, userInfo]);
 
   return (
-    <div className="container">
-      <div className="row">
-        <div className="col-12 mx-auto col-md-12 col-lg-12">
-          <ul className="list-group">
-            <div className="text-center">Share Requests</div>
-            <>
-              {loading ? (
-                <Loader />
-              ) : error ? (
-                <div>{error}</div>
-              ) : (
-                requests &&
-                requests.map((shareRequest) => {
-                  return (
-                    <ShareRequest
-                      key={shareRequest._id}
-                      shareRequest={shareRequest}
-                    />
-                  );
-                })
-              )}
-            </>
+    <>
+      {userInfo && <Meta title={`${userInfo.userName}'s Messages - ListApp`} />}
+      <div className="container">
+        <div className="row">
+          <div className="col-12 mx-auto col-md-12 col-lg-12">
+            <ul className="list-group">
+              <div className="text-center">Share Requests</div>
+              <>
+                {loading ? (
+                  <Loader />
+                ) : error ? (
+                  <div>{error}</div>
+                ) : (
+                  requests &&
+                  requests.map((shareRequest) => {
+                    return (
+                      <ShareRequest
+                        key={shareRequest._id}
+                        shareRequest={shareRequest}
+                      />
+                    );
+                  })
+                )}
+              </>
 
-            <div className="text-center">Messages</div>
-            <>
-              {/*(value) => {
+              <div className="text-center">Messages</div>
+              <>
+                {/*(value) => {
                   return value.conversations.map((conversation) => {
                     if (conversation.messages.length > 0) {
                       return (
@@ -68,11 +71,12 @@ const MessageCentreScreen = ({ history }) => {
                     }
                   });
                 }*/}
-            </>
-          </ul>
+              </>
+            </ul>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

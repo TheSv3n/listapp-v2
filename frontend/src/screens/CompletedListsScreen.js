@@ -6,6 +6,7 @@ import { getUsersLists } from "../actions/listActions";
 import { updatePageHeading } from "../actions/navBarActions";
 import { getReceivedShareRequests } from "../actions/shareRequestActions";
 import { getReceivedFriendRequests } from "../actions/friendRequestActions";
+import Meta from "../components/Meta";
 
 const CompletedListsScreen = ({ history }) => {
   const dispatch = useDispatch();
@@ -29,6 +30,9 @@ const CompletedListsScreen = ({ history }) => {
 
   return (
     <>
+      {userInfo && (
+        <Meta title={`${userInfo.userName}'s Completed Lists - ListApp`} />
+      )}
       <div className="container">
         <div className="row">
           <div className="col-12 mx-auto col-md-12 col-lg-12">

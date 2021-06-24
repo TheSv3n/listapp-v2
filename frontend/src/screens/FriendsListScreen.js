@@ -10,6 +10,7 @@ import {
 } from "../actions/friendRequestActions";
 import { updatePageHeading } from "../actions/navBarActions";
 import Loader from "../components/Loader";
+import Meta from "../components/Meta";
 
 const FriendsListScreen = ({ history }) => {
   const dispatch = useDispatch();
@@ -32,10 +33,8 @@ const FriendsListScreen = ({ history }) => {
   const receivedFriendRequests = useSelector(
     (state) => state.receivedFriendRequests
   );
-  const {
-    loading: receivedLoading,
-    requests: receivedRequests,
-  } = receivedFriendRequests;
+  const { loading: receivedLoading, requests: receivedRequests } =
+    receivedFriendRequests;
 
   useEffect(() => {
     if (!userInfo) {
@@ -67,76 +66,79 @@ const FriendsListScreen = ({ history }) => {
   ]);
 
   return (
-    <div className="container">
-      <div className="row">
-        <div className="col-12 mx-auto col-md-12 col-lg-12">
-          <ul className="list-group">
-            <UserSearch />
-            <div className="text-center">Search Results</div>
-            <>
-              {resultsLoading ? (
-                <Loader />
-              ) : (
-                sentRequests &&
-                results &&
-                results.map((userResult) => {
-                  let friendRequested = false;
+    <>
+      {userInfo && <Meta title={`${userInfo.userName}'s Friends - ListApp`} />}
+      <div className="container">
+        <div className="row">
+          <div className="col-12 mx-auto col-md-12 col-lg-12">
+            <ul className="list-group">
+              <UserSearch />
+              <div className="text-center">Search Results</div>
+              <>
+                {resultsLoading ? (
+                  <Loader />
+                ) : (
+                  sentRequests &&
+                  results &&
+                  results.map((userResult) => {
+                    let friendRequested = false;
 
-                  for (let i = 0; i < sentRequests.length; i++) {
-                    if (userResult._id === sentRequests[i].requestTo) {
-                      friendRequested = true;
+                    for (let i = 0; i < sentRequests.length; i++) {
+                      if (userResult._id === sentRequests[i].requestTo) {
+                        friendRequested = true;
+                      }
                     }
-                  }
 
-                  return (
-                    <FriendElement
-                      key={userResult._id}
-                      friend={userResult}
-                      friendRequested={friendRequested}
-                    />
-                  );
-                })
-              )}
-            </>
+                    return (
+                      <FriendElement
+                        key={userResult._id}
+                        friend={userResult}
+                        friendRequested={friendRequested}
+                      />
+                    );
+                  })
+                )}
+              </>
 
-            <div className="text-center">Friends</div>
-            <>
-              {loading ? (
-                <Loader />
-              ) : (
-                friendList &&
-                friendList.map((friend) => {
-                  return (
-                    <FriendElement
-                      key={friend._id}
-                      friend={friend}
-                      isFriend={true}
-                    />
-                  );
-                })
-              )}
-            </>
+              <div className="text-center">Friends</div>
+              <>
+                {loading ? (
+                  <Loader />
+                ) : (
+                  friendList &&
+                  friendList.map((friend) => {
+                    return (
+                      <FriendElement
+                        key={friend._id}
+                        friend={friend}
+                        isFriend={true}
+                      />
+                    );
+                  })
+                )}
+              </>
 
-            <div className="text-center">Friend Requests</div>
-            <>
-              {receivedLoading ? (
-                <Loader />
-              ) : (
-                receivedRequests &&
-                receivedRequests.map((friendRequest) => {
-                  return (
-                    <FriendRequest
-                      key={friendRequest._id}
-                      friendRequest={friendRequest}
-                    />
-                  );
-                })
-              )}
-            </>
-          </ul>
+              <div className="text-center">Friend Requests</div>
+              <>
+                {receivedLoading ? (
+                  <Loader />
+                ) : (
+                  receivedRequests &&
+                  receivedRequests.map((friendRequest) => {
+                    return (
+                      <FriendRequest
+                        key={friendRequest._id}
+                        friendRequest={friendRequest}
+                      />
+                    );
+                  })
+                )}
+              </>
+            </ul>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

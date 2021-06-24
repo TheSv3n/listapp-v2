@@ -8,6 +8,7 @@ import { getReceivedShareRequests } from "../actions/shareRequestActions";
 import { getReceivedFriendRequests } from "../actions/friendRequestActions";
 import { updatePageHeading } from "../actions/navBarActions";
 import { Link } from "react-router-dom";
+import Meta from "../components/Meta";
 
 const ListMenuScreen = ({ history }) => {
   const dispatch = useDispatch();
@@ -34,6 +35,7 @@ const ListMenuScreen = ({ history }) => {
   }, [dispatch, history, userInfo]);
   return (
     <>
+      {userInfo && <Meta title={`${userInfo.userName}'s Lists - ListApp`} />}
       <div className="container">
         <div className="row">
           <div className="col-12 mx-auto col-md-12 col-lg-12">

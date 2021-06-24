@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { getReceivedShareRequests } from "../actions/shareRequestActions";
 import { getReceivedFriendRequests } from "../actions/friendRequestActions";
 import NavIcons from "./NavIcons";
 
 const NavBar = () => {
+  const history = useHistory();
   const dispatch = useDispatch();
 
   const [showIcons, setShowIcons] = useState(false);
@@ -39,11 +40,11 @@ const NavBar = () => {
 
   return (
     <>
-      <div className="navbar">
+      <div className="navbar fixed-top">
         <div className="mr-auto ml-4 title-text">
-          <Link to="/" style={{ textDecoration: "none" }}>
+          <span className="nav-icon-span" onClick={history.goBack}>
             <i className="far fa-arrow-alt-circle-left nav-item-icon" />
-          </Link>
+          </span>
         </div>
         <div className="mx-auto title-text">{title}</div>
         <div className="ml-auto mr-4 title-text">

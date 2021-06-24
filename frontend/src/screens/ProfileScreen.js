@@ -5,6 +5,7 @@ import Loader from "../components/Loader";
 import { getReceivedFriendRequests } from "../actions/friendRequestActions";
 import { getReceivedShareRequests } from "../actions/shareRequestActions";
 import { updatePageHeading } from "../actions/navBarActions";
+import Meta from "../components/Meta";
 
 const ProfileScreen = ({ history }) => {
   const dispatch = useDispatch();
@@ -33,35 +34,37 @@ const ProfileScreen = ({ history }) => {
   };
 
   return (
-    <div className="container">
-      {loading ? (
-        <Loader />
-      ) : error ? (
-        <div>{error}</div>
-      ) : (
-        user && (
-          <div className="row">
-            <div className="col-12 mx-auto col-md-12 col-lg-12">
-              <li className="list-group-item text-capitalize my-2">
-                <form>
-                  <div className="row">
-                    <div className="input-group col-12  my-1">
-                      <div className="input-group-prepend">
-                        <div className="input-group-text bg-primary text-white">
-                          <i className="fas fa-user mr-3" />
-                          Username
+    <>
+      {userInfo && <Meta title={`${userInfo.userName}'s Profile - ListApp`} />}
+      <div className="container">
+        {loading ? (
+          <Loader />
+        ) : error ? (
+          <div>{error}</div>
+        ) : (
+          user && (
+            <div className="row">
+              <div className="col-12 mx-auto col-md-12 col-lg-12">
+                <li className="list-group-item text-capitalize my-2">
+                  <form>
+                    <div className="row">
+                      <div className="input-group col-12  my-1">
+                        <div className="input-group-prepend">
+                          <div className="input-group-text bg-primary text-white">
+                            <i className="fas fa-user mr-3" />
+                            Username
+                          </div>
                         </div>
+                        <input
+                          type="text"
+                          className="form-control text-capitalize"
+                          placeholder="Username"
+                          value={user.userName}
+                          readOnly
+                        />
                       </div>
-                      <input
-                        type="text"
-                        className="form-control text-capitalize"
-                        placeholder="Username"
-                        value={user.userName}
-                        readOnly
-                      />
                     </div>
-                  </div>
-                  {/*<div className="row">
+                    {/*<div className="row">
                       <div className="input-group col-12 my-1">
                         <div className="input-group-prepend">
                           <div className="input-group-text bg-primary text-white">
@@ -78,80 +81,81 @@ const ProfileScreen = ({ history }) => {
                       </div>
                     </div>
         */}
-                  <React.Fragment>
-                    <div className="row">
-                      <div className="input-group col-6  my-1">
-                        <div className="input-group-prepend">
-                          <div className="input-group-text bg-primary text-white">
-                            <i className="fas fa-id-card mr-3" />
-                            First Name
+                    <React.Fragment>
+                      <div className="row">
+                        <div className="input-group col-6  my-1">
+                          <div className="input-group-prepend">
+                            <div className="input-group-text bg-primary text-white">
+                              <i className="fas fa-id-card mr-3" />
+                              First Name
+                            </div>
                           </div>
+                          <input
+                            type="text"
+                            className="form-control text-capitalize"
+                            placeholder="First Name"
+                            value={user.name.split(" ")[0]}
+                          />
                         </div>
-                        <input
-                          type="text"
-                          className="form-control text-capitalize"
-                          placeholder="First Name"
-                          value={user.name.split(" ")[0]}
-                        />
-                      </div>
-                      <div className="input-group col-6 my-1">
-                        <div className="input-group-prepend">
-                          <div className="input-group-text bg-primary text-white">
-                            <i className="fas fa-id-card mr-3" />
-                            Last Name
+                        <div className="input-group col-6 my-1">
+                          <div className="input-group-prepend">
+                            <div className="input-group-text bg-primary text-white">
+                              <i className="fas fa-id-card mr-3" />
+                              Last Name
+                            </div>
                           </div>
+                          <input
+                            type="text"
+                            className="form-control text-capitalize"
+                            placeholder="Last Name"
+                            value={user.name.split(" ")[1]}
+                          />
                         </div>
-                        <input
-                          type="text"
-                          className="form-control text-capitalize"
-                          placeholder="Last Name"
-                          value={user.name.split(" ")[1]}
-                        />
                       </div>
-                    </div>
+                      <div className="row">
+                        <div className="input-group col-12 my-1">
+                          <div className="input-group-prepend">
+                            <div className="input-group-text bg-primary text-white">
+                              <i className="fas fa-at mr-3" />
+                              Email Address
+                            </div>
+                          </div>
+                          <input
+                            type="text"
+                            className="form-control"
+                            placeholder="Email Address"
+                            value={user.email}
+                          />
+                        </div>
+                      </div>
+                    </React.Fragment>
                     <div className="row">
                       <div className="input-group col-12 my-1">
-                        <div className="input-group-prepend">
-                          <div className="input-group-text bg-primary text-white">
-                            <i className="fas fa-at mr-3" />
-                            Email Address
+                        <button
+                          className="btn btn-block btn-danger mx-3 mt-1"
+                          onClick={handleLogout}
+                        >
+                          Log Out
+                        </button>
+                        {/*value.errorView ? (
+                          <div className="row">
+                            <li className="list-group-item text-center my-2 mx-auto border-danger col-11 bg-danger text-white">
+                              {value.errorText}
+                            </li>
                           </div>
-                        </div>
-                        <input
-                          type="text"
-                          className="form-control"
-                          placeholder="Email Address"
-                          value={user.email}
-                        />
+                        ) : (
+                          ""
+                        )*/}
                       </div>
                     </div>
-                  </React.Fragment>
-                  <div className="row">
-                    <div className="input-group col-12 my-1">
-                      <button
-                        className="btn btn-block btn-danger mx-3 mt-1"
-                        onClick={handleLogout}
-                      >
-                        Log Out
-                      </button>
-                      {/*value.errorView ? (
-                    <div className="row">
-                      <li className="list-group-item text-center my-2 mx-auto border-danger col-11 bg-danger text-white">
-                        {value.errorText}
-                      </li>
-                    </div>
-                  ) : (
-                    ""
-                  )*/}
-                    </div>
-                  </div>
-                </form>
-              </li>
+                  </form>
+                </li>
+              </div>
             </div>
-          </div>
-        )
-      )}
-    </div>
+          )
+        )}
+      </div>
+    </>
   );
 };
 
