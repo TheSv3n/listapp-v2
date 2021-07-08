@@ -8,18 +8,20 @@
   --mainGreen: #11cc11;
   --mainGrey: #dddddd;
   --primaryBlue: #0275d8;
+  --navbarHeight: 70px;
 }
 
 body::before {
   display: block;
   content: "";
-  height: 70px;
+  height: var(--navbarHeight);
 }
 
 .navbar {
   text-align: center;
   color: var(--mainWhite);
   background: var(--lightBlue);
+  height: var(--navbarHeight);
 }
 
 .list-group-item {

@@ -14,6 +14,9 @@ const NavIcons = () => {
   const { requests: friendRequests } = receivedFriendRequests;
   return (
     <>
+      <Link to="/" style={{ textDecoration: "none" }}>
+        <i className="fas fa-list-alt nav-item-icon mr-2" />
+      </Link>
       <Link to="/friendlist" style={{ textDecoration: "none" }}>
         {friendRequests && friendRequests.length > 0 ? (
           <i className="fas fa-user-friends nav-item-icon mr-2 icon-has-message" />

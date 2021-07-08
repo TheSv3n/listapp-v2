@@ -72,7 +72,7 @@ const NavBar = () => {
         </div>
       </div>
       {showIcons ? (
-        <div className="navbar">
+        <div className="navbar icon-bar">
           <ul className="navbar-nav align-items-center mx-auto d-md-none d-lg-none">
             <li className="nav-item-icon mx-auto nav-link">
               <NavIcons />
