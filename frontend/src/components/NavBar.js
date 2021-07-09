@@ -10,6 +10,7 @@ const NavBar = () => {
   const dispatch = useDispatch();
 
   const [showIcons, setShowIcons] = useState(false);
+  const [showBack, setShowBack] = useState(false);
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -36,18 +37,29 @@ const NavBar = () => {
         dispatch(getReceivedFriendRequests());
       }
     }
-  }, [dispatch, userInfo, shareRequests, friendRequests]);
+    if (window.location.pathname === "/") {
+      setShowBack(false);
+    } else {
+      setShowBack(true);
+    }
+    console.log(showBack);
+  }, [dispatch, userInfo, shareRequests, friendRequests, showBack]);
 
   return (
     <>
       <div className="navbar fixed-top">
-        <div className="mr-auto ml-4 title-text">
-          <span className="nav-icon-span" onClick={history.goBack}>
-            <i className="far fa-arrow-alt-circle-left nav-item-icon" />
-          </span>
+        <div className="mr-auto ml-md-4 title-text">
+          {showBack ? (
+            <span className="nav-icon-span" onClick={history.goBack}>
+              <i className="far fa-arrow-alt-circle-left nav-item-icon" />
+            </span>
+          ) : (
+            ""
+          )}
         </div>
-        <div className="mx-auto title-text">{title}</div>
-        <div className="ml-auto mr-4 title-text">
+
+        <div className="mx-auto title-text page-heading">{title}</div>
+        <div className="ml-auto mr-md-4 title-text">
           <div className="d-none d-lg-block d-md-block">
             <NavIcons />
           </div>
