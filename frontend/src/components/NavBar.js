@@ -10,7 +10,6 @@ const NavBar = () => {
   const dispatch = useDispatch();
 
   const [showIcons, setShowIcons] = useState(false);
-  const [showBack, setShowBack] = useState(false);
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -28,6 +27,9 @@ const NavBar = () => {
   const pageHeading = useSelector((state) => state.pageHeading);
   const { title } = pageHeading;
 
+  const backButton = useSelector((state) => state.backButton);
+  const { showBack } = backButton;
+
   useEffect(() => {
     if (userInfo) {
       if (!shareRequests) {
@@ -37,13 +39,7 @@ const NavBar = () => {
         dispatch(getReceivedFriendRequests());
       }
     }
-    if (window.location.pathname === "/") {
-      setShowBack(false);
-    } else {
-      setShowBack(true);
-    }
-    console.log(showBack);
-  }, [dispatch, userInfo, shareRequests, friendRequests, showBack]);
+  }, [dispatch, userInfo, shareRequests, friendRequests]);
 
   return (
     <>

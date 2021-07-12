@@ -7,6 +7,7 @@ import NewItemEditor from "../components/NewItemEditor";
 import ListItem from "../components/ListItem";
 import { getReceivedShareRequests } from "../actions/shareRequestActions";
 import { getReceivedFriendRequests } from "../actions/friendRequestActions";
+import { updateBackButton } from "../actions/navBarActions";
 import Meta from "../components/Meta";
 
 const ListScreen = ({ match, history }) => {
@@ -31,6 +32,7 @@ const ListScreen = ({ match, history }) => {
       dispatch(getListItems(listId));
       dispatch(getReceivedShareRequests());
       dispatch(getReceivedFriendRequests());
+      dispatch(updateBackButton(true));
     }
   }, [dispatch, history, userInfo, listId]);
 

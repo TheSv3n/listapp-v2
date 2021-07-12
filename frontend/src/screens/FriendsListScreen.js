@@ -8,7 +8,7 @@ import {
   getReceivedFriendRequests,
   getSentFriendRequests,
 } from "../actions/friendRequestActions";
-import { updatePageHeading } from "../actions/navBarActions";
+import { updatePageHeading, updateBackButton } from "../actions/navBarActions";
 import Loader from "../components/Loader";
 import Meta from "../components/Meta";
 
@@ -53,6 +53,7 @@ const FriendsListScreen = ({ history }) => {
           dispatch(getReceivedFriendRequests());
         }
         dispatch(updatePageHeading(`${user.userName}'s Friends`));
+        dispatch(updateBackButton(true));
       }
     }
   }, [

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ListMenuItem from "../components/ListMenuItem";
 import Loader from "../components/Loader";
 import { getUsersLists } from "../actions/listActions";
-import { updatePageHeading } from "../actions/navBarActions";
+import { updatePageHeading, updateBackButton } from "../actions/navBarActions";
 import { getReceivedShareRequests } from "../actions/shareRequestActions";
 import { getReceivedFriendRequests } from "../actions/friendRequestActions";
 import Meta from "../components/Meta";
@@ -25,6 +25,7 @@ const CompletedListsScreen = ({ history }) => {
       dispatch(getReceivedShareRequests());
       dispatch(getReceivedFriendRequests());
       dispatch(updatePageHeading(`${userInfo.userName}'s Completed Lists`));
+      dispatch(updateBackButton(true));
     }
   }, [dispatch, history, userInfo]);
 

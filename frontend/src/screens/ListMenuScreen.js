@@ -6,7 +6,7 @@ import Loader from "../components/Loader";
 import { getUsersLists, getSharedLists } from "../actions/listActions";
 import { getReceivedShareRequests } from "../actions/shareRequestActions";
 import { getReceivedFriendRequests } from "../actions/friendRequestActions";
-import { updatePageHeading } from "../actions/navBarActions";
+import { updatePageHeading, updateBackButton } from "../actions/navBarActions";
 import { Link } from "react-router-dom";
 import Meta from "../components/Meta";
 
@@ -31,6 +31,7 @@ const ListMenuScreen = ({ history }) => {
       dispatch(getReceivedShareRequests());
       dispatch(getReceivedFriendRequests());
       dispatch(updatePageHeading(`${userInfo.userName}'s Lists`));
+      dispatch(updateBackButton(false));
     }
   }, [dispatch, history, userInfo]);
   return (

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Loader from "../components/Loader";
 import { getReceivedFriendRequests } from "../actions/friendRequestActions";
 import { getReceivedShareRequests } from "../actions/shareRequestActions";
-import { updatePageHeading } from "../actions/navBarActions";
+import { updatePageHeading, updateBackButton } from "../actions/navBarActions";
 import Meta from "../components/Meta";
 
 const ProfileScreen = ({ history }) => {
@@ -25,6 +25,7 @@ const ProfileScreen = ({ history }) => {
       dispatch(getReceivedShareRequests());
       dispatch(getReceivedFriendRequests());
       dispatch(updatePageHeading(`${userInfo.userName}'s Profile`));
+      dispatch(updateBackButton(true));
     }
   }, [dispatch, userInfo, user, history]);
 

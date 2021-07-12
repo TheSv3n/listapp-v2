@@ -5,7 +5,7 @@ import Loader from "../components/Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { getReceivedShareRequests } from "../actions/shareRequestActions";
 import { getReceivedFriendRequests } from "../actions/friendRequestActions";
-import { updatePageHeading } from "../actions/navBarActions";
+import { updatePageHeading, updateBackButton } from "../actions/navBarActions";
 import Meta from "../components/Meta";
 
 const MessageCentreScreen = ({ history }) => {
@@ -26,6 +26,7 @@ const MessageCentreScreen = ({ history }) => {
       dispatch(getReceivedShareRequests());
       dispatch(getReceivedFriendRequests());
       dispatch(updatePageHeading(`${userInfo.userName}'s Messages`));
+      dispatch(updateBackButton(true));
     }
   }, [dispatch, history, userInfo]);
 
