@@ -6,7 +6,11 @@ import Loader from "../components/Loader";
 import { getUsersLists, getSharedLists } from "../actions/listActions";
 import { getReceivedShareRequests } from "../actions/shareRequestActions";
 import { getReceivedFriendRequests } from "../actions/friendRequestActions";
-import { updatePageHeading, updateBackButton } from "../actions/navBarActions";
+import {
+  updatePageHeading,
+  updateBackButton,
+  updateShowIcons,
+} from "../actions/navBarActions";
 import { Link } from "react-router-dom";
 import Meta from "../components/Meta";
 
@@ -34,6 +38,15 @@ const ListMenuScreen = ({ history }) => {
       dispatch(updateBackButton(false));
     }
   }, [dispatch, history, userInfo]);
+
+  const navIcons = useSelector((state) => state.navIcons);
+  const { showIcons } = navIcons;
+
+  const hideIcons = () => {
+    if (showIcons) {
+      dispatch(updateShowIcons(false));
+    }
+  };
   return (
     <>
       {userInfo && <Meta title={`${userInfo.userName}'s Lists - ListApp`} />}
@@ -66,7 +79,11 @@ const ListMenuScreen = ({ history }) => {
                         }
                       })}
                   </>{" "}
-                  <Link to="/completedlists" style={{ textDecoration: "none" }}>
+                  <Link
+                    to="/completedlists"
+                    style={{ textDecoration: "none" }}
+                    onClick={() => hideIcons()}
+                  >
                     <button className="btn btn-block btn-primary col-5 mx-auto mt-1">
                       View Completed Lists
                     </button>

@@ -4,7 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import Loader from "../components/Loader";
 import { getReceivedFriendRequests } from "../actions/friendRequestActions";
 import { getReceivedShareRequests } from "../actions/shareRequestActions";
-import { updatePageHeading, updateBackButton } from "../actions/navBarActions";
+import {
+  updatePageHeading,
+  updateBackButton,
+  updateShowIcons,
+} from "../actions/navBarActions";
 import Meta from "../components/Meta";
 
 const ProfileScreen = ({ history }) => {
@@ -14,6 +18,15 @@ const ProfileScreen = ({ history }) => {
 
   const userDetails = useSelector((state) => state.userDetails);
   const { loading, error, user } = userDetails;
+
+  const navIcons = useSelector((state) => state.navIcons);
+  const { showIcons } = navIcons;
+
+  const hideIcons = () => {
+    if (showIcons) {
+      dispatch(updateShowIcons(false));
+    }
+  };
 
   useEffect(() => {
     if (!userInfo) {
@@ -31,6 +44,7 @@ const ProfileScreen = ({ history }) => {
 
   const handleLogout = (e) => {
     e.preventDefault();
+    hideIcons();
     dispatch(logout());
   };
 

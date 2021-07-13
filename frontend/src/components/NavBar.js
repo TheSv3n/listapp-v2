@@ -1,15 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { getReceivedShareRequests } from "../actions/shareRequestActions";
 import { getReceivedFriendRequests } from "../actions/friendRequestActions";
+import { updateShowIcons } from "../actions/navBarActions";
 import NavIcons from "./NavIcons";
 
 const NavBar = () => {
   const history = useHistory();
   const dispatch = useDispatch();
-
-  const [showIcons, setShowIcons] = useState(false);
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -30,6 +29,20 @@ const NavBar = () => {
   const backButton = useSelector((state) => state.backButton);
   const { showBack } = backButton;
 
+  const navIcons = useSelector((state) => state.navIcons);
+  const { showIcons } = navIcons;
+
+  const setShowIcons = () => {
+    dispatch(updateShowIcons(!showIcons));
+  };
+
+  const handleBackButton = () => {
+    history.goBack();
+    if (showIcons) {
+      dispatch(updateShowIcons(false));
+    }
+  };
+
   useEffect(() => {
     if (userInfo) {
       if (!shareRequests) {
@@ -43,53 +56,62 @@ const NavBar = () => {
 
   return (
     <>
-      <div className="navbar fixed-top">
-        <div className="mr-auto ml-md-4 title-text">
-          {showBack ? (
-            <span className="nav-icon-span" onClick={history.goBack}>
-              <i className="far fa-arrow-alt-circle-left nav-item-icon" />
-            </span>
-          ) : (
-            ""
-          )}
-        </div>
+      <div className="navbar-custom fixed-top">
+        <div className="container mt-3">
+          <div className="row mx-4">
+            <div className="mr-auto  title-text">
+              {showBack ? (
+                <span
+                  className="nav-icon-span"
+                  onClick={() => handleBackButton()}
+                >
+                  <i className="far fa-arrow-alt-circle-left nav-item-icon" />
+                </span>
+              ) : (
+                ""
+              )}
+            </div>
 
-        <div className="mx-auto title-text page-heading">{title}</div>
-        <div className="ml-auto mr-md-4 title-text">
-          <div className="d-none d-lg-block d-md-block">
-            <NavIcons />
-          </div>
-          <div className="d-block d-lg-none d-md-none">
-            {(friendRequests && friendRequests.length > 0) ||
-            (shareRequests && shareRequests.length > 0) ? (
-              <i
-                className="fas fa-bars icon-has-message nav-item-icon"
-                onClick={() => {
-                  setShowIcons(!showIcons);
-                }}
-              ></i>
-            ) : (
-              <i
-                className="fas fa-bars"
-                onClick={() => {
-                  setShowIcons(!showIcons);
-                }}
-              ></i>
-            )}
+            <div className="mx-auto title-text my-auto page-heading">
+              {title}
+            </div>
+            <div className="ml-auto title-text">
+              <div className="d-none d-lg-block d-md-block">
+                <NavIcons />
+              </div>
+              <div className="d-block d-lg-none d-md-none">
+                {(friendRequests && friendRequests.length > 0) ||
+                (shareRequests && shareRequests.length > 0) ? (
+                  <i
+                    className="fas fa-bars icon-has-message nav-item-icon"
+                    onClick={() => {
+                      setShowIcons();
+                    }}
+                  ></i>
+                ) : (
+                  <i
+                    className="fas fa-bars"
+                    onClick={() => {
+                      setShowIcons();
+                    }}
+                  ></i>
+                )}
+              </div>
+            </div>
           </div>
         </div>
+        {showIcons ? (
+          <div className="navbar-custom icon-bar">
+            <ul className="navbar-nav align-items-center mx-auto d-md-none d-lg-none">
+              <li className="nav-item-icon mx-auto nav-link">
+                <NavIcons />
+              </li>
+            </ul>
+          </div>
+        ) : (
+          ""
+        )}
       </div>
-      {showIcons ? (
-        <div className="navbar icon-bar">
-          <ul className="navbar-nav align-items-center mx-auto d-md-none d-lg-none">
-            <li className="nav-item-icon mx-auto nav-link">
-              <NavIcons />
-            </li>
-          </ul>
-        </div>
-      ) : (
-        ""
-      )}
     </>
   );
 };

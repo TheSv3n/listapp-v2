@@ -5,6 +5,7 @@ import {
   deleteList,
   listShareRemove,
 } from "../actions/listActions";
+import { updateShowIcons } from "../actions/navBarActions";
 
 const ListMenuItem = ({ list, history }) => {
   const dispatch = useDispatch();
@@ -14,6 +15,7 @@ const ListMenuItem = ({ list, history }) => {
   const { userInfo } = userLogin;
 
   const clickHandler = () => {
+    hideIcons();
     history.push(`/list/${list._id}`);
   };
 
@@ -27,6 +29,15 @@ const ListMenuItem = ({ list, history }) => {
 
   const handleDelete = () => {
     dispatch(deleteList(list._id));
+  };
+
+  const navIcons = useSelector((state) => state.navIcons);
+  const { showIcons } = navIcons;
+
+  const hideIcons = () => {
+    if (showIcons) {
+      dispatch(updateShowIcons(false));
+    }
   };
 
   return (

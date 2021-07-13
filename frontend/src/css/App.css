@@ -17,7 +17,7 @@ body::before {
   height: var(--navbarHeight);
 }
 
-.navbar {
+.navbar-custom {
   text-align: center;
   color: var(--mainWhite);
   background: var(--lightBlue);

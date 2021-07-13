@@ -34,6 +34,7 @@ import {
 import {
   pageHeadingReducer,
   backButtonReducer,
+  navIconsReducer,
 } from "./reducers/navBarReducers";
 
 const reducer = combineReducers({
@@ -59,6 +60,7 @@ const reducer = combineReducers({
   friendRequestCreate: friendRequestCreateReducer,
   pageHeading: pageHeadingReducer,
   backButton: backButtonReducer,
+  navIcons: navIconsReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")
