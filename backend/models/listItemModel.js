@@ -1,5 +1,42 @@
 import mongoose from "mongoose";
 
+const subItemSchema = mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  addedBy: {
+    type: String,
+    required: true,
+  },
+  description: {
+    type: String,
+    required: false,
+  },
+  image: {
+    type: String,
+    required: false,
+  },
+  dateAdded: {
+    type: Date,
+    required: true,
+  },
+  completed: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
+  dateCompleted: {
+    type: Date,
+    required: false,
+  },
+  completedBy: {
+    type: String,
+    required: false,
+    default: "",
+  },
+});
+
 const listItemSchema = mongoose.Schema(
   {
     name: {
@@ -54,6 +91,7 @@ const listItemSchema = mongoose.Schema(
       type: String,
       required: false,
     },
+    subItems: [subItemSchema],
   },
   {
     timestamps: true,
