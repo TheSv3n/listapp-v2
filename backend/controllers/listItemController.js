@@ -73,4 +73,37 @@ const updateDeleted = asyncHandler(async (req, res) => {
   }
 });
 
-export { createListItem, getListItems, updateCompleted, updateDeleted };
+// @desc    Add new sub item
+// @route   POST /api/listitems/:id/subitems
+// @access  Private
+const addNewSubItem = asyncHandler(async (req, res) => {
+  const { name, description, dateAdded } = req.body;
+
+  const listItem = await ListItem.findById(req.params.id);
+
+  if (listItem) {
+    const newSubItem = {
+      name: name,
+      description: description,
+      addedBy: req.user._id,
+      description,
+      dateAdded,
+    };
+
+    listItem.subItems.push(newSubItem);
+
+    await listItem.save();
+    res.status(201).json({ message: "Sub Item Added" });
+  } else {
+    res.status(404);
+    throw new Error("List item not found");
+  }
+});
+
+export {
+  createListItem,
+  getListItems,
+  updateCompleted,
+  updateDeleted,
+  addNewSubItem,
+};

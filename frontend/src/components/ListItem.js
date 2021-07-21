@@ -170,7 +170,7 @@ const ListItem = ({ listItem }) => {
           )}
         </div>
       </li>
-      {subEditorShow ? <SubItemEditor /> : ""}
+      {subEditorShow ? <SubItemEditor listItemId={itemId} /> : ""}
     </>
   );
 };

@@ -12,6 +12,9 @@ import {
   DELETE_LIST_ITEM_SUCCESS,
   DELETE_LIST_ITEM_FAIL,
   LIST_ITEMS_UPDATE,
+  CREATE_LIST_SUB_ITEM_REQUEST,
+  CREATE_LIST_SUB_ITEM_SUCCESS,
+  CREATE_LIST_SUB_ITEM_FAIL,
 } from "../constants/listItemConstants";
 import axios from "axios";
 
@@ -189,3 +192,42 @@ export const addToListItems = (listItem) => async (dispatch, getState) => {
     payload: tempItems,
   });
 };
+
+export const createSubItem =
+  (listItemId, subItem) => async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: CREATE_LIST_SUB_ITEM_REQUEST,
+      });
+
+      const {
+        userLogin: { userInfo },
+      } = getState();
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+
+      const { data } = await axios.post(
+        `/api/listitems/${listItemId}/subitems`,
+        subItem,
+        config
+      );
+
+      dispatch({
+        type: CREATE_LIST_SUB_ITEM_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: CREATE_LIST_SUB_ITEM_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
