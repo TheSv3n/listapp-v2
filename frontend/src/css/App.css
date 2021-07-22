@@ -24,6 +24,10 @@ body::before {
   height: var(--navbarHeight);
 }
 
+.list-group {
+  list-style-type: none;
+}
+
 .list-group-item {
   border: 0.2rem solid var(--lightBlue) !important;
   border-radius: 15px !important;

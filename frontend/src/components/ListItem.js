@@ -3,6 +3,7 @@ import { completeListItem, deleteListItem } from "../actions/listItemActions";
 import { Image } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import SubItemEditor from "./SubItemEditor";
+import SubItem from "./SubItem";
 
 const ListItem = ({ listItem }) => {
   const itemId = listItem._id;
@@ -15,6 +16,8 @@ const ListItem = ({ listItem }) => {
   const { error: completeError } = listItemComplete;
 
   const listId = list._id;
+
+  const subItems = listItem.subItems;
 
   const [infoShow, setInfoShow] = useState(false);
   const [pictureShow, setPictureShow] = useState(false);
@@ -171,6 +174,11 @@ const ListItem = ({ listItem }) => {
         </div>
       </li>
       {subEditorShow ? <SubItemEditor listItemId={itemId} /> : ""}
+      <>
+        {listItem.subItems.map((subItem) => {
+          return <SubItem key={subItem._id} subItem={subItem} />;
+        })}
+      </>
     </>
   );
 };

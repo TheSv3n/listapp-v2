@@ -158,7 +158,7 @@ const NewItemEditor = ({ history, listId }) => {
 
         <div className="row d-block my-2">
           <div className="input-group col-12 ">
-            <label for="image-form" className="mr-1 my-auto">
+            <label htmlFor="image-form" className="mr-1 my-auto">
               <i className="fas fa-image" /> Add Image
             </label>
             <input

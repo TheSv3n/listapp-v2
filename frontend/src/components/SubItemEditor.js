@@ -1,12 +1,24 @@
-import React, { useState, useEffect } from "react";
-
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import "../css/NewItemEditor.css";
+import { createSubItem } from "../actions/listItemActions";
 
 const SubItemEditor = ({ listItemId }) => {
+  const dispatch = useDispatch();
   const [itemName, setItemName] = useState("");
   const [description, setDescription] = useState("");
 
-  const handleSubmit = () => {};
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(
+      createSubItem(listItemId, {
+        name: itemName,
+        description: description,
+        dateAdded: Date.now(),
+      })
+    );
+    setItemName("");
+  };
 
   return (
     <>
