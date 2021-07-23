@@ -1,8 +1,15 @@
 import React from "react";
+import { completeListSubItem } from "../actions/listItemActions";
+import { useDispatch, useSelector } from "react-redux";
 
 const SubItem = ({ listItemId, subItem }) => {
+  const dispatch = useDispatch();
   const completeError = "";
-  const handleChecked = () => {};
+  const handleChecked = () => {
+    dispatch(completeListSubItem(listItemId, subItem));
+    console.log(listItemId);
+  };
+
   const handleInfoToggle = () => {};
   const handleDelete = () => {};
   return (
@@ -10,7 +17,7 @@ const SubItem = ({ listItemId, subItem }) => {
       <li
         className={
           subItem.completed
-            ? "list-group-item list-group-item-done d-flex text-center my-1 my-md-2 my-lg-2 col-11 ml-auto mr-1"
+            ? "list-group-item list-group-item-done d-flex text-center my-1 my-md-2 my-lg-2 col-11 ml-auto mr-3"
             : "list-group-item d-flex text-center my-1 my-md-2 my-lg-2 col-11 ml-auto mr-3"
         }
       >

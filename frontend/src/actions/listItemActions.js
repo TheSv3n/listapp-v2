@@ -15,6 +15,9 @@ import {
   CREATE_LIST_SUB_ITEM_REQUEST,
   CREATE_LIST_SUB_ITEM_SUCCESS,
   CREATE_LIST_SUB_ITEM_FAIL,
+  COMPLETE_LIST_SUB_ITEM_REQUEST,
+  COMPLETE_LIST_SUB_ITEM_SUCCESS,
+  COMPLETE_LIST_SUB_ITEM_FAIL,
 } from "../constants/listItemConstants";
 import axios from "axios";
 
@@ -224,6 +227,45 @@ export const createSubItem =
     } catch (error) {
       dispatch({
         type: CREATE_LIST_SUB_ITEM_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
+
+export const completeListSubItem =
+  (itemId, subItemId) => async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: COMPLETE_LIST_SUB_ITEM_REQUEST,
+      });
+
+      const {
+        userLogin: { userInfo },
+      } = getState();
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+
+      const { data } = await axios.put(
+        `/api/listitems/${itemId}/subitems/completed`,
+        { subItemId: subItemId },
+        config
+      );
+
+      dispatch({
+        type: COMPLETE_LIST_SUB_ITEM_SUCCESS,
+        payload: data,
+      });
+      dispatch(updateListItems(data));
+    } catch (error) {
+      dispatch({
+        type: COMPLETE_LIST_SUB_ITEM_FAIL,
         payload:
           error.response && error.response.data.message
             ? error.response.data.message

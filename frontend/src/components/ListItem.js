@@ -17,8 +17,6 @@ const ListItem = ({ listItem }) => {
 
   const listId = list._id;
 
-  const subItems = listItem.subItems;
-
   const [infoShow, setInfoShow] = useState(false);
   const [pictureShow, setPictureShow] = useState(false);
   const [subEditorShow, setSubEditorShow] = useState(false);
@@ -176,7 +174,9 @@ const ListItem = ({ listItem }) => {
       {subEditorShow ? <SubItemEditor listItemId={itemId} /> : ""}
       <>
         {listItem.subItems.map((subItem) => {
-          return <SubItem key={subItem._id} subItem={subItem} />;
+          return (
+            <SubItem key={subItem._id} subItem={subItem} listItemId={itemId} />
+          );
         })}
       </>
     </>
