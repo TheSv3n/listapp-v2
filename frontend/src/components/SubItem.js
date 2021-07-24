@@ -6,8 +6,7 @@ const SubItem = ({ listItemId, subItem }) => {
   const dispatch = useDispatch();
   const completeError = "";
   const handleChecked = () => {
-    dispatch(completeListSubItem(listItemId, subItem));
-    console.log(listItemId);
+    dispatch(completeListSubItem(listItemId, subItem._id));
   };
 
   const handleInfoToggle = () => {};

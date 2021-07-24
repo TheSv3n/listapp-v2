@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { completeListItem, deleteListItem } from "../actions/listItemActions";
 import { Image } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,6 +20,7 @@ const ListItem = ({ listItem }) => {
   const [infoShow, setInfoShow] = useState(false);
   const [pictureShow, setPictureShow] = useState(false);
   const [subEditorShow, setSubEditorShow] = useState(false);
+  const [subItemsCompleted, setSubItemsCompleted] = useState(false);
 
   const handleInfoToggle = () => {
     setInfoShow(!infoShow);
@@ -42,6 +43,28 @@ const ListItem = ({ listItem }) => {
   const toggleSubEditor = () => {
     setSubEditorShow(!subEditorShow);
   };
+
+  const checkSubItemsCompleted = (subItems) => {
+    let completedCount = 0;
+    if (subItems.length === 0) {
+      setSubItemsCompleted(true);
+    } else {
+      for (let i = 0; i < subItems.length; i++) {
+        if (subItems[i].completed) {
+          completedCount++;
+        }
+      }
+      if (completedCount === subItems.length) {
+        setSubItemsCompleted(true);
+      } else {
+        setSubItemsCompleted(false);
+      }
+    }
+  };
+
+  useEffect(() => {
+    checkSubItemsCompleted(listItem.subItems);
+  }, [dispatch, listItem.subItems]);
 
   return (
     <>
@@ -89,16 +112,20 @@ const ListItem = ({ listItem }) => {
             <div>
               <div className="d-inline col-1">
                 <span
-                  className="icon-span mr-3"
+                  className={`icon-span mr-3`}
                   onClick={() => {
-                    handleChecked();
+                    subItemsCompleted && handleChecked();
                   }}
                 >
                   <i
                     className={
                       listItem.completed
                         ? "text-danger fas fa-undo-alt icon"
-                        : "text-success fas fa-check icon"
+                        : `${
+                            subItemsCompleted
+                              ? "text-success icon"
+                              : "hidden-icon"
+                          }  fas fa-check`
                     }
                   />{" "}
                 </span>{" "}
