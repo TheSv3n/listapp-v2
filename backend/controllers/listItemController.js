@@ -93,7 +93,7 @@ const addNewSubItem = asyncHandler(async (req, res) => {
     listItem.subItems.push(newSubItem);
 
     await listItem.save();
-    res.status(201).json({ message: "Sub Item Added" });
+    res.status(201).json(listItem);
   } else {
     res.status(404);
     throw new Error("List item not found");

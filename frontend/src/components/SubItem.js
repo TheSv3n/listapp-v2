@@ -1,12 +1,12 @@
 import React from "react";
 import { completeListSubItem } from "../actions/listItemActions";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
-const SubItem = ({ listItemId, subItem }) => {
+const SubItem = ({ listItemId, subItem, listItemCompleted }) => {
   const dispatch = useDispatch();
   const completeError = "";
-  const handleChecked = () => {
-    dispatch(completeListSubItem(listItemId, subItem._id));
+  const handleChecked = async () => {
+    dispatch(completeListSubItem(listItemId, subItem._id, listItemCompleted));
   };
 
   const handleInfoToggle = () => {};

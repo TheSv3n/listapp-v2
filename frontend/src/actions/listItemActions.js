@@ -224,6 +224,7 @@ export const createSubItem =
         type: CREATE_LIST_SUB_ITEM_SUCCESS,
         payload: data,
       });
+      dispatch(updateListItems(data));
     } catch (error) {
       dispatch({
         type: CREATE_LIST_SUB_ITEM_FAIL,
@@ -236,7 +237,7 @@ export const createSubItem =
   };
 
 export const completeListSubItem =
-  (itemId, subItemId) => async (dispatch, getState) => {
+  (itemId, subItemId, listItemCompleted) => async (dispatch, getState) => {
     try {
       dispatch({
         type: COMPLETE_LIST_SUB_ITEM_REQUEST,
@@ -262,7 +263,10 @@ export const completeListSubItem =
         type: COMPLETE_LIST_SUB_ITEM_SUCCESS,
         payload: data,
       });
-      dispatch(updateListItems(data));
+      await dispatch(updateListItems(data));
+      if (listItemCompleted) {
+        dispatch(completeListItem(itemId));
+      }
     } catch (error) {
       dispatch({
         type: COMPLETE_LIST_SUB_ITEM_FAIL,

@@ -202,7 +202,12 @@ const ListItem = ({ listItem }) => {
       <>
         {listItem.subItems.map((subItem) => {
           return (
-            <SubItem key={subItem._id} subItem={subItem} listItemId={itemId} />
+            <SubItem
+              key={subItem._id}
+              subItem={subItem}
+              listItemId={itemId}
+              listItemCompleted={listItem.completed}
+            />
           );
         })}
       </>
