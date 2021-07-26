@@ -18,6 +18,9 @@ import {
   COMPLETE_LIST_SUB_ITEM_REQUEST,
   COMPLETE_LIST_SUB_ITEM_SUCCESS,
   COMPLETE_LIST_SUB_ITEM_FAIL,
+  DELETE_LIST_SUB_ITEM_REQUEST,
+  DELETE_LIST_SUB_ITEM_SUCCESS,
+  DELETE_LIST_SUB_ITEM_FAIL,
 } from "../constants/listItemConstants";
 import axios from "axios";
 
@@ -270,6 +273,46 @@ export const completeListSubItem =
     } catch (error) {
       dispatch({
         type: COMPLETE_LIST_SUB_ITEM_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
+
+export const deleteListSubItem =
+  (itemId, subItemId) => async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: DELETE_LIST_SUB_ITEM_REQUEST,
+      });
+
+      const {
+        userLogin: { userInfo },
+      } = getState();
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+
+      const { data } = await axios.put(
+        `/api/listitems/${itemId}/subitems/deleted`,
+        { subItemId: subItemId },
+        config
+      );
+
+      dispatch({
+        type: DELETE_LIST_SUB_ITEM_SUCCESS,
+        payload: data,
+      });
+      dispatch(updateListItems(data));
+    } catch (error) {
+      console.log(error.response.data.message);
+      dispatch({
+        type: DELETE_LIST_SUB_ITEM_FAIL,
         payload:
           error.response && error.response.data.message
             ? error.response.data.message

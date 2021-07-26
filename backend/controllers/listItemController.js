@@ -130,6 +130,36 @@ const updateSubItemCompleted = asyncHandler(async (req, res) => {
   }
 });
 
+//@desc Delete sub-item
+//@route DELETE /api/listitems/:id/subitems/deleted/
+//@access Private
+const deleteSubItem = asyncHandler(async (req, res) => {
+  const listItem = await ListItem.findById(req.params.id);
+  const subItemId = req.body.subItemId;
+
+  if (listItem) {
+    let tempSubItems = [...listItem.subItems];
+    let index = -1;
+
+    for (let i = 0; i < tempSubItems.length; i++) {
+      if (tempSubItems[i]._id.toString() === subItemId) {
+        index = i;
+      }
+    }
+
+    tempSubItems.splice(index, 1);
+
+    listItem.subItems = tempSubItems;
+
+    await listItem.save();
+
+    res.json(listItem);
+  } else {
+    res.status(404);
+    throw new Error("Item not Found");
+  }
+});
+
 export {
   createListItem,
   getListItems,
@@ -137,4 +167,5 @@ export {
   updateDeleted,
   addNewSubItem,
   updateSubItemCompleted,
+  deleteSubItem,
 };

@@ -34,7 +34,7 @@ const SubItemEditor = ({ listItemId }) => {
               <input
                 type="text"
                 className="form-control"
-                placeholder="Item"
+                placeholder="Sub-Item"
                 value={itemName}
                 onChange={(e) => setItemName(e.target.value)}
               />
@@ -44,7 +44,7 @@ const SubItemEditor = ({ listItemId }) => {
               type="submit"
               className="btn btn-block btn-primary col-4 mr-auto mt-1"
             >
-              Add Item
+              Add Sub-Item
             </button>
           </div>
         </form>

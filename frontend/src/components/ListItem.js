@@ -107,7 +107,7 @@ const ListItem = ({ listItem }) => {
                 ""
               )}
             </div>
-            <div className="col-6 mx-auto">{listItem.name}</div>
+            <div className="col-4 col-md-6 mx-auto">{listItem.name}</div>
             <div className="col-1 mx-auto">{listItem.cost}</div>
             <div>
               <div className="d-inline col-1">

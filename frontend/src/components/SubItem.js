@@ -1,16 +1,21 @@
 import React from "react";
-import { completeListSubItem } from "../actions/listItemActions";
+import {
+  completeListSubItem,
+  deleteListSubItem,
+} from "../actions/listItemActions";
 import { useDispatch } from "react-redux";
 
 const SubItem = ({ listItemId, subItem, listItemCompleted }) => {
   const dispatch = useDispatch();
   const completeError = "";
-  const handleChecked = async () => {
+  const handleChecked = () => {
     dispatch(completeListSubItem(listItemId, subItem._id, listItemCompleted));
   };
 
   const handleInfoToggle = () => {};
-  const handleDelete = () => {};
+  const handleDelete = () => {
+    dispatch(deleteListSubItem(listItemId, subItem._id));
+  };
   return (
     <>
       <li
@@ -43,7 +48,7 @@ const SubItem = ({ listItemId, subItem, listItemCompleted }) => {
                 ""
               )}
             </div>
-            <div className="col-7 mx-auto">{subItem.name}</div>
+            <div className="col-6 col-md-7 mx-auto">{subItem.name}</div>
 
             <div>
               <div className="d-inline col-1">
